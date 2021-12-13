@@ -5,7 +5,7 @@ const ProjectSchema = new Mongoose.Schema({
     name: String,
     user_id: {
         type: Mongoose.Types.ObjectId,
-        ref: "User"// baş harfi büyük yazınca düzeldi!
+        ref: "user"// baş harfi büyük yazınca düzeldi!
     }
 }, {timestamps: true, versionKey:false});
 
@@ -18,4 +18,4 @@ ProjectSchema.post("save", (doc)=>{
     });
 });
 
-module.exports = Mongoose.model("Projects", ProjectSchema);
+module.exports = Mongoose.model("project", ProjectSchema);

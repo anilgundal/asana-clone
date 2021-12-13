@@ -5,11 +5,11 @@ const SectionSchema = new Mongoose.Schema({
     name: String,
     user_id: {
         type: Mongoose.Types.ObjectId,
-        ref: "User"// baş harfi büyük yazınca düzeldi!
+        ref: "user"// baş harfi büyük yazınca düzeldi!
     },
     project_id:{
         type: Mongoose.Types.ObjectId,
-        ref: "Projects"
+        ref: "project"
     },
     order: Number
 }, {timestamps: true, versionKey:false});
@@ -24,4 +24,4 @@ SectionSchema.post("save", (doc)=>{
     });
 });
 
-module.exports = Mongoose.model("Section", SectionSchema);
+module.exports = Mongoose.model("section", SectionSchema);

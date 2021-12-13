@@ -19,4 +19,4 @@ UserSchema.post("save", (doc) => {
     });
 });
 
-module.exports = Mongoose.model('User', UserSchema);
+module.exports = Mongoose.model('user', UserSchema);
