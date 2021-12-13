@@ -1,7 +1,0 @@
-.env
-yarn.lock
-yarn-error.log
-node_modules/
-*.log
-.DS_Store
-v2/src/uploads
