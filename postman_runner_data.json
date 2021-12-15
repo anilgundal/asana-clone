@@ -1,0 +1,87 @@
+[
+  {
+    "key": "URL",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "PORT",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "project_1",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "project_2",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "project_3",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "project_4",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "project_5",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "project_6",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "currentdate",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "new_userName",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "new_userEmail",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "new_userPass",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "del_userID",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "pass_reset",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "del_project",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "upd_sectionID",
+    "value": "",
+    "enabled": true
+  },
+  {
+    "key": "del_sectionID",
+    "value": "",
+    "enabled": true
+  }
+]

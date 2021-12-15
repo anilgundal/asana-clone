@@ -116,16 +116,24 @@ const uploadProfile = (req, res, next) => {
      * app.use("/uploads", express.static(path.join(__dirname, "./", "uploads")));
     */
 
-    if(!req?.files?.picture) return res.status(httpStatus.BAD_REQUEST).send({message:"İstek geçersizdir!"});
-    const extension = path.extname(req.files.picture.name);
-    const fileName = `${req?.user?._id}${extension}`;
-    const folderPath = path.join(__dirname, "../", "uploads/users", fileName);
-    req.files.picture.mv(folderPath, function(err) {
-        if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Dosya yükleme başarısız oldu!", error:err});
-        modify({_id: req.user._id}, {picture: fileName})
-        .then(u => res.status(httpStatus.OK).send({message:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))
-        .catch(e=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Upload başarılı fakat kayıt işlemi başarısız!", error:e}));
-    });
+    
+    if(!req?.files?.picture && !req.body?.picture) return res.status(httpStatus.BAD_REQUEST).send({message:"İstek geçersizdir!"});
+    if(req?.body?.picture){
+        modify({ _id: req.user?._id}, req.body)
+        .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
+        .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Güncelleme yapılamadı!"}));
+    }
+    else if(req?.files?.picture){
+        const extension = path.extname(req.files.picture.name);
+        const fileName = `${req?.user?._id}${extension}`;
+        const folderPath = path.join(__dirname, "../", "uploads/users", fileName);
+        req.files.picture.mv(folderPath, function(err) {
+            if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Dosya yükleme başarısız oldu!", error:err});
+            modify({_id: req.user._id}, {picture: fileName})
+            .then(u => res.status(httpStatus.OK).send({message:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))
+            .catch(e=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Upload başarılı fakat kayıt işlemi başarısız!", error:e}));
+        });
+    }
 }
 module.exports = {
     login,
