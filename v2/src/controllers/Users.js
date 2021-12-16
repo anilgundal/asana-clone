@@ -1,15 +1,20 @@
+const User = new (require('../services/Users'))("UserService");
+const Project = new (require('../services/Projects'))("ProjectService");
 const httpStatus = require('http-status');
 const uuid = require('uuid');
 const path = require('path');
-const { insert, list, modify, loginUser, remove } = require('../services/Users');
 const eventEmitter = require('../scripts/events/evenEmitter');
-const projectService = require('../services/Projects');
 const { passwordToHash, generateAccessToken, generateRefreshToken  } = require('../scripts/utils/helper');
 
-
+const insert = (req, res) => {
+    req.body.password = passwordToHash( req.body.password );
+    User.create(req.body)
+    .then(result => res.status(httpStatus.CREATED).send(result))
+    .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)); 
+}
 const login = (req, res) => {
     req.body.password = passwordToHash( req.body.password );
-    loginUser(req.body)
+    User.read(req.body)
     .then((user)  => {
         if(!user) return res.status(httpStatus.NOT_FOUND).send({message: "Kullanıcı adı veya parolası yanlış!"});
         user = {
@@ -21,43 +26,22 @@ const login = (req, res) => {
         };
         delete user.password;
         res.status(httpStatus.OK).send(user);
-
-    }).catch((err) => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(err));
-}
-const create = (req, res) => {
-
-    req.body.password = passwordToHash( req.body.password );
-
-    insert(req.body).then((result) => {
-        res.status(httpStatus.CREATED).send(result);
     })
-    .catch((e) => {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e);
-    }); 
-    
+    .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e));
 }
-const index = (req, res) => {
-    list().then(result => {
-        res.status(httpStatus.OK).send(result)
-    }).catch(e => {
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e);
-    });
+const list = (req, res) => {
+    User.index()
+    .then(result => res.status(httpStatus.OK).send(result))
+    .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e));
 }
 const projectList = (req, res) => {
-    projectService
-    .list({user_id: req.user?._id})
-    .then(projects => {
-        res.status(httpStatus.OK).send(projects);
-    })
-    .catch( () => 
-        res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
-            error: "Projeler getirilemedi"
-        })
-    ); 
+    Project.index({user_id: req.user?._id})
+    .then(result => res.status(httpStatus.OK).send(result))
+    .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message: "Projeler getirilemedi", error:e})); 
 }
 const resetPassword = (req, res) => {
     const newPass = uuid.v4()?.split("-")[0] || `usr-${new Date().getTime()}`;
-    modify({email: req.body.email}, {password: passwordToHash(newPass)})
+    User.updateWhere({email: req.body.email}, {password: passwordToHash(newPass)})
     .then((updatedUser) => {
         if(!updatedUser) return res.status(httpStatus.NOT_FOUND).send({error:"Bu mail adresi ile kayıt bulunmamaktadır!"})
         eventEmitter.emit("send_email", {
@@ -68,32 +52,28 @@ const resetPassword = (req, res) => {
             Yeni şifreniz: <b>${newPass}</b>`,
           });
           res.status(httpStatus.OK).send({message: "Kayıtlı e-posta adresinize geçici şifrenizi gönderdik."})
-    }).catch( () => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Şifre sıfırlanamadı"}))
+    }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message: "Şifre sıfırlanamadı", error:e}))
 }
 const changePassword = (req, res) => {
     //! ...Şifre karşılaştırmaları sonradan hazırlancak.
     req.body.password = passwordToHash(req.body.password);
-    modify({ _id: req.user?._id}, req.body)
-    .then(updatedUser => {
-        res.status(httpStatus.OK).send({updatedUser : updatedUser});
-    })
-    .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Güncelleme yapılamadı!"}))
+    User.update(req.user?._id, req.body)
+    .then(updatedUser =>  res.status(httpStatus.OK).send({updatedUser : updatedUser}))
+    .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message: "Güncelleme yapılamadı!", error:e}))
 
 }
-const update = (req, res) => {
-    modify({ _id: req.user?._id}, req.body)
-    .then(updatedUser => {
-        res.status(httpStatus.OK).send({updatedUser : updatedUser});
-    })
-    .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Güncelleme yapılamadı!"}))
-
+const change = (req, res) => {
+    User.update(req.user?._id, req.body)
+    .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
+    .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message : "Güncelleme yapılamadı!", error:e}));
 }
-const deleteUser = (req, res) => {
+const remove = (req, res) => {
     if(!req.params?.id) return res.status(httpStatus.BAD_REQUEST).send({ message: 'Geçersiz ID'});
-    remove(req.params?.id).then(deletedItem => {
+    User.delete(req.params?.id)
+    .then(deletedItem => {
         if(!deletedItem) return res.status(httpStatus.NOT_FOUND).send({ message: 'Kayıt bulunamadı!'});
         res.status(httpStatus.OK).send({message:"Kayıt silindi."});
-    }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message:"Kayıt silme işlemi başarısız oldu."}));
+    }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message:"Kayıt silme işlemi başarısız oldu.", error:e}));
 };
 const uploadProfile = (req, res, next) => {
     /** path require edildi. join ile beraber ilgili yol bulundu
@@ -119,7 +99,7 @@ const uploadProfile = (req, res, next) => {
     
     if(!req?.files?.picture && !req.body?.picture) return res.status(httpStatus.BAD_REQUEST).send({message:"İstek geçersizdir!"});
     if(req?.body?.picture){
-        modify({ _id: req.user?._id}, req.body)
+        User.update(req.user?._id, req.body)
         .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
         .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Güncelleme yapılamadı!"}));
     }
@@ -129,7 +109,7 @@ const uploadProfile = (req, res, next) => {
         const folderPath = path.join(__dirname, "../", "uploads/users", fileName);
         req.files.picture.mv(folderPath, function(err) {
             if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Dosya yükleme başarısız oldu!", error:err});
-            modify({_id: req.user._id}, {picture: fileName})
+            User.update(req.user._id, {picture: fileName})
             .then(u => res.status(httpStatus.OK).send({message:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))
             .catch(e=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Upload başarılı fakat kayıt işlemi başarısız!", error:e}));
         });
@@ -137,12 +117,12 @@ const uploadProfile = (req, res, next) => {
 }
 module.exports = {
     login,
-    create,
-    index,
+    insert,
+    list,
+    change,
+    remove,
     projectList,
-    resetPassword,
-    update,
-    deleteUser,
-    changePassword,
     uploadProfile,
+    resetPassword,
+    changePassword,
 }

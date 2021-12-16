@@ -1,33 +1,16 @@
-const Sections = require('../models/Sections');
-/* Option'da new true demezsen eskisini görürsün */
+const BaseService = require("./BaseService");
+const BaseModel = require("../models/Sections");
 
-const insert = (data) => {
-    return new Sections(data).save();
+class Sections extends BaseService {
+    constructor(){
+        super(BaseModel);
+    }
+    index(where){
+        return BaseModel.find(where || {}).populate([
+            {path: "user_id", select: "fullname email picture"},
+            {path: "project_id", select: "name"}
+        ]);
+    }; 
 }
 
-const modify = (data, id) => {
-    return Sections.findByIdAndUpdate(id, data, {new:true});
-}
-
-const remove = (id) => {
-    return Sections.findByIdAndDelete(id);
-}
-    /** obje varsa where yoksa boş olarak çalış */
-const list = (where) => {
-    return Sections.find(where || {})
-    .populate({
-        path: "user_id",
-        select: "fullname email picture"
-    })
-    .populate({
-        path: "project_id",
-        select: "name"
-    });
-}; 
-
-module.exports = {
-    insert,
-    modify,
-    list,
-    remove
-}
+module.exports = Sections;

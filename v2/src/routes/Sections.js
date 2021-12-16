@@ -4,13 +4,13 @@ const validation = require('../validations/Sections');
 
 const express = require('express');
 const router = express.Router();
-const { index, create, update, deleteSection  } = require('../controllers/Sections');
+const { list, insert, change, remove } = require('../controllers/Sections');
 
 
 // validate'e schemaların içerisindeki createValidation'ı aktar
-router.route("/:projectId").get(authenticate, index);
-router.route("/").post(authenticate, validate(validation.createValidation), create);
-router.route("/:id").patch(authenticate, validate(validation.updateValidation), update);
-router.route("/:id").delete(authenticate, deleteSection);
+router.route("/:projectId").get(authenticate, list);
+router.route("/").post(authenticate, validate(validation.insertValidation), insert);
+router.route("/:id").patch(authenticate, validate(validation.changeValidation), change);
+router.route("/:id").delete(authenticate, remove);
 
 module.exports = router;

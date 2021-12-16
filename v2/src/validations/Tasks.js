@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const createValidation = Joi.object({
+const insertValidation = Joi.object({
     title: Joi.string().required().min(3),
     description: Joi.string().min(3),
     assigned_to: Joi.string().min(8),
@@ -15,7 +15,7 @@ const createValidation = Joi.object({
     comments: Joi.array(),
 });
 
-const updateValidation = Joi.object({
+const changeValidation = Joi.object({
     title: Joi.string().min(3),
     description: Joi.string().min(3),
     assigned_to: Joi.string().min(8),
@@ -38,7 +38,7 @@ const commentValidation = Joi.object({
 
 
 module.exports = {
-    createValidation,
-    updateValidation,
+    insertValidation,
+    changeValidation,
     commentValidation,
 }
