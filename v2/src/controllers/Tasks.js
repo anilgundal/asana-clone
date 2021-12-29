@@ -24,7 +24,7 @@ const remove = async (req, res, next) => {
         mainTask.sub_tasks = mainTask.sub_tasks.filter((c) => c._id?.toString() !== req.params?.id);
         mainTask.save().then((updatedData) => {
             next();
-        }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message:"SubTask silme işlemi başarısız oldu."}));
+        })//.catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message:"SubTask silme işlemi başarısız oldu."}));
     }
     Task.delete(req.params?.id).then(deletedItem => {
         if(!deletedItem) return res.status(httpStatus.NOT_FOUND).send({ message: 'Kayıt bulunamadı!'});
