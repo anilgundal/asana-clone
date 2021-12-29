@@ -5,8 +5,8 @@ const path = require('path');
 const config = require('./config');
 const loaders = require('./loaders');
 const events = require('./scripts/events');
+const errorHandler = require("./middlewares/errorHandler");
 const { ProjectRoutes, UserRoutes, SectionRoutes, TaskRoutes } = require('./routes');
-
 
 config();
 loaders();
@@ -24,4 +24,13 @@ app.listen(process.env.APP_PORT, () => {
     app.use("/users", UserRoutes);
     app.use("/sections", SectionRoutes);
     app.use("/tasks", TaskRoutes);
+
+    app.use((req, res, next) => {
+        const error = new Error("Aradığınız sayfa bulunamadı!");
+        error.status = 404;
+        next(error);
+    });
+
+    // Error handling
+    app.use(errorHandler);
 });
