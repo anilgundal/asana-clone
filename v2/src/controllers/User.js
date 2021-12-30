@@ -1,5 +1,6 @@
 const User = require('../services/User');
 const Project = require('../services/Project');
+const ApiError = require('../errors/ApiError');
 const httpStatus = require('http-status');
 const uuid = require('uuid');
 const path = require('path');
@@ -11,13 +12,13 @@ class UserController {
         req.body.password = passwordToHash( req.body.password );
         User.create(req.body)
         .then(result => res.status(httpStatus.CREATED).send(result))
-        .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e)); 
+        .catch(e => new ApiError(e?.message));
     }
     login (req, res) {
         req.body.password = passwordToHash( req.body.password );
         User.read(req.body)
-        .then((user)  => {
-            if(!user) return res.status(httpStatus.NOT_FOUND).send({message: "Kullanıcı adı veya parolası yanlış!"});
+        .then(user  => {
+            if(!user) return ApiError.notFound();
             user = {
                 ... user.toObject(),
                 token: {
@@ -28,23 +29,23 @@ class UserController {
             delete user.password;
             res.status(httpStatus.OK).send(user);
         })
-        .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e));
+        .catch(e => new ApiError(e?.message));
     }
     list (req, res) {
         User.index()
         .then(result => res.status(httpStatus.OK).send(result))
-        .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send(e));
+        .catch(e => new ApiError(e?.message));
     }
     projectList (req, res) {
         Project.index({user_id: req.user?._id})
         .then(result => res.status(httpStatus.OK).send(result))
-        .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message: "Projeler getirilemedi", error:e})); 
+        .catch(e => new ApiError(e?.message));
     }
     resetPassword (req, res) {
         const newPass = uuid.v4()?.split("-")[0] || `usr-${new Date().getTime()}`;
         User.updateWhere({email: req.body.email}, {password: passwordToHash(newPass)})
         .then((updatedUser) => {
-            if(!updatedUser) return res.status(httpStatus.NOT_FOUND).send({error:"Bu mail adresi ile kayıt bulunmamaktadır!"})
+            if(!updatedUser) return ApiError.notFound("Bu mail adresi ile kayıt bulunmamaktadır!");
             eventEmitter.emit("send_email", {
                 to: updatedUser.email,
                 subject: "Şifre Sıfırlama",
@@ -53,28 +54,26 @@ class UserController {
                 Yeni şifreniz: <b>${newPass}</b>`,
               });
               res.status(httpStatus.OK).send({message: "Kayıtlı e-posta adresinize geçici şifrenizi gönderdik."})
-        }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message: "Şifre sıfırlanamadı", error:e}))
+        }).catch(e => new ApiError(e?.message));
     }
     changePassword (req, res) {
         //! ...Şifre karşılaştırmaları sonradan hazırlancak.
         req.body.password = passwordToHash(req.body.password);
         User.update(req.user?._id, req.body)
         .then(updatedUser =>  res.status(httpStatus.OK).send({updatedUser : updatedUser}))
-        .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message: "Güncelleme yapılamadı!", error:e}))
+        .catch(e => new ApiError(e?.message));
     
     }
     change (req, res) {
         User.update(req.user?._id, req.body)
         .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
-        .catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message : "Güncelleme yapılamadı!", error:e}));
+        .catch(e => new ApiError(e?.message));
     }
     remove (req, res) {
-        if(!req.params?.id) return res.status(httpStatus.BAD_REQUEST).send({ message: 'Geçersiz ID'});
         User.delete(req.params?.id)
         .then(deletedItem => {
-            if(!deletedItem) return res.status(httpStatus.NOT_FOUND).send({ message: 'Kayıt bulunamadı!'});
-            res.status(httpStatus.OK).send({message:"Kayıt silindi."});
-        }).catch(e => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ message:"Kayıt silme işlemi başarısız oldu.", error:e}));
+            return (!deletedItem) ? next(ApiError.notFound()) : res.status(httpStatus.OK).send({message:"Kayıt silindi."})})
+        .catch(e => new ApiError(e?.message));
     }
     uploadProfile (req, res, next) {
         /** path require edildi. join ile beraber ilgili yol bulundu
@@ -98,11 +97,11 @@ class UserController {
         */
     
         
-        if(!req?.files?.picture && !req.body?.picture) return res.status(httpStatus.BAD_REQUEST).send({message:"İstek geçersizdir!"});
+        if(!req?.files?.picture && !req.body?.picture) return ApiError.badRequest("Dosya seçin!", 400);
         if(req?.body?.picture){
             User.update(req.user?._id, req.body)
             .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
-            .catch(() => res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Güncelleme yapılamadı!"}));
+            .catch(e => new ApiError(e?.message));
         }
         else if(req?.files?.picture){
             const extension = path.extname(req.files.picture.name);
@@ -112,7 +111,7 @@ class UserController {
                 if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Dosya yükleme başarısız oldu!", error:err});
                 User.update(req.user._id, {picture: fileName})
                 .then(u => res.status(httpStatus.OK).send({message:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))
-                .catch(e=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Upload başarılı fakat kayıt işlemi başarısız!", error:e}));
+                .catch(e => new ApiError(e?.message));
             });
         }
     }

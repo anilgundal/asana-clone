@@ -1,3 +1,5 @@
+const { string } = require("joi");
+
 class ApiError extends Error {
     constructor(message, status){
         super(message);
@@ -5,14 +7,14 @@ class ApiError extends Error {
         this.status = status;
     }
     static notFound(){
-        let error = {
-            message:"Böyle bir kayıt bulunamadı!",
+        const error = {
+            message: "Böyle bir kayıt bulunamadı!",
             status:404
         }
         return error;
     }
     static badRequest(){
-        let error = {
+        const error = {
             message:"Geçersiz istek!"
         }
         return error;
