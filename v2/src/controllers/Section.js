@@ -1,10 +1,10 @@
 const Section = require('../services/Section');
-const httpStatus = require('http-status');
 const ApiError = require('../errors/ApiError');
+const httpStatus = require('http-status');
 
 class SectionController {
     list(req, res){
-        Section.index({project_id: req.params.projectId})
+        Section.index({id: req.params.id})
         .then(result => res.status(httpStatus.OK).send(result))
         .catch(e => new ApiError(e?.message));
     }
