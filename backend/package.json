@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "preinstall": "[ \"$IS_CONTAINER\" != 1 ] && echo \"Installing packages is not permitted outside of a container!\" 1>&2 && exit 1; exit 0",
+    "predev": "[ \"$IS_CONTAINER\" != 1 ] && echo \"Running the development script is not permitted outside of a container!\" 1>&2 && exit 1; exit 0",
+    "dev": "nodemon -L src/app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "helmet": "^4.6.0",
+    "http-status": "^1.5.0",
+    "joi": "^17.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.13",
+    "nodemailer": "^6.7.2",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
