@@ -11,12 +11,12 @@
       <!--begin::Heading-->
       <div class="text-center mb-10">
         <!--begin::Title-->
-        <h1 class="text-dark mb-3">Forgot Password ?</h1>
+        <h1 class="text-dark mb-3">Parolamı Unuttum ?</h1>
         <!--end::Title-->
 
         <!--begin::Link-->
         <div class="text-gray-400 fw-bold fs-4">
-          Enter your email to reset your password.
+          Hesabınıza kayıtlı mail adresinizi girin.
         </div>
         <!--end::Link-->
       </div>
@@ -24,7 +24,7 @@
 
       <!--begin::Input group-->
       <div class="fv-row mb-10">
-        <label class="form-label fw-bolder text-gray-900 fs-6">Email</label>
+        <label class="form-label fw-bolder text-gray-900 fs-6">Eposta</label>
         <Field
           class="form-control form-control-solid"
           type="email"
@@ -48,9 +48,9 @@
           id="kt_password_reset_submit"
           class="btn btn-lg btn-primary fw-bolder me-4"
         >
-          <span class="indicator-label"> Submit </span>
+          <span class="indicator-label"> Gönder </span>
           <span class="indicator-progress">
-            Please wait...
+            Lütfen bekleyin...
             <span
               class="spinner-border spinner-border-sm align-middle ms-2"
             ></span>
@@ -58,9 +58,9 @@
         </button>
 
         <router-link
-          to="/sign-up"
+          to="/sign-in"
           class="btn btn-lg btn-light-primary fw-bolder"
-          >Cancel</router-link
+          >İptal</router-link
         >
       </div>
       <!--end::Actions-->
@@ -74,6 +74,7 @@
 import { defineComponent, ref } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import * as Yup from "yup";
 import { Actions } from "@/store/enums/StoreEnums";
 import Swal from "sweetalert2/dist/sweetalert2.min.js";
@@ -87,6 +88,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const router = useRouter();
 
     const submitButton = ref<HTMLButtonElement | null>(null);
 
@@ -111,13 +113,15 @@ export default defineComponent({
 
       if (!error) {
         Swal.fire({
-          text: "You have successfully logged in!",
+          text: "Geçici parolanız mail adresinize gönderilmiştir!",
           icon: "success",
           buttonsStyling: false,
-          confirmButtonText: "Ok, got it!",
+          confirmButtonText: "Tamam",
           customClass: {
             confirmButton: "btn fw-bold btn-light-primary",
           },
+        }).then(function () {
+          router.push({ name: "sign-in" });
         });
       } else {
         Swal.fire({

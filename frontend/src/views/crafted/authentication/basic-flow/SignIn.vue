@@ -16,8 +16,6 @@
 
         <!--begin::Link-->
         <div class="text-gray-400 fw-bold fs-4">
-          New Here?
-
           <router-link to="/sign-up" class="link-primary fw-bolder">
             Yeni hesap oluştur
           </router-link>
@@ -94,7 +92,7 @@
           <span class="indicator-label"> Devam </span>
 
           <span class="indicator-progress">
-            Yönlendiriliyorsunuz...
+            Lütfen bekleyin...
             <span
               class="spinner-border spinner-border-sm align-middle ms-2"
             ></span>
@@ -163,7 +161,8 @@ export default defineComponent({
           customClass: {
             confirmButton: "btn fw-bold btn-light-primary",
           },
-        }).then(function () {
+        })
+        .then(function () {
           // Go to page after successfully login
           router.push({ name: "dashboard" });
         });

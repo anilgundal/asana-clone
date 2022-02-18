@@ -2,7 +2,8 @@ const Mongoose = require('mongoose');
 const logger = require("../scripts/logger/Users");
 
 const UserSchema = new Mongoose.Schema({
-    fullname: String,
+    firstname: String,
+    lastname: String,
     password: String,
     email: String,
     picture: String

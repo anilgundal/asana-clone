@@ -8,8 +8,11 @@ const loginValidation = Joi.object({
 });
 
 const insertValidation = Joi.object({
-    fullname: Joi.string().required().min(3),
+    firstname: Joi.string().required().min(3),
+    lastname: Joi.string().required().min(3),
     password: Joi.string().required().min(8),
+    confirmation: Joi.string().required().min(8),
+    toc: Joi.number().required(),
     email: Joi.string().email().required().min(8),
 });
 

@@ -8,16 +8,25 @@ const eventEmitter = require('../scripts/events/evenEmitter');
 const { passwordToHash, generateAccessToken, generateRefreshToken  } = require('../scripts/utils/helper');
 
 class UserController {
-    insert (req, res) {
+    async insert (req, res) {
+        if(req.body.password !== req.body.confirmation) return res.status(httpStatus.BAD_REQUEST).send({message:"Parolanız eşleşmedi!"});
         req.body.password = passwordToHash( req.body.password );
-        User.create(req.body)
-        .then(result => res.status(httpStatus.CREATED).send({message:"Kayıt", result:result}))
-        .catch(e => new ApiError(e?.message));
+        const userExists = await User.read({ email: req.body.email });
+        if (userExists){
+            return res.status(httpStatus.UNAUTHORIZED).send({message:"Bu mail ile daha önce kayıt yapılmış!"});
+        }else{
+            User.create(req.body)
+            .then(user => {
+                delete user.password; delete user.confirmation;
+                res.status(httpStatus.CREATED).send(user)
+            })
+            .catch(e => new ApiError({message:e?.message}));
+        }
     }
     login (req, res) {
         req.body.password = passwordToHash( req.body.password );
         User.read(req.body).then(user  => {
-        if(!user) return res.status(httpStatus.NOT_FOUND).send({errors:"Kullanıcı adı veya parolası yanlış!"});
+        if(!user) return res.status(httpStatus.NOT_FOUND).send({message:"Kullanıcı adı veya parolası yanlış!"});
             user = {
                 ... user.toObject(),
                 token: {
@@ -27,7 +36,7 @@ class UserController {
             };
             delete user.password;
             res.status(httpStatus.OK).send(user);
-        }).catch((e) => res.status(httpStatus.NOT_FOUND).send(e));
+        }).catch((e) => res.status(httpStatus.NOT_FOUND).send({message:e}));
     }
     list (req, res) {
         User.index()
@@ -114,7 +123,7 @@ class UserController {
         }
     }
     verify_token (req, res) {
-        return res.status(httpStatus.OK).send({accessToken : "Verifield!"});
+        return res.status(httpStatus.OK).send({message : "Verifield!"});
     }
 }
 module.exports = new UserController();

@@ -12,50 +12,31 @@
       <!--begin::Heading-->
       <div class="mb-10 text-center">
         <!--begin::Title-->
-        <h1 class="text-dark mb-3">Create an Account</h1>
+        <h1 class="text-dark mb-3">Yeni Hesap Oluştur</h1>
         <!--end::Title-->
 
         <!--begin::Link-->
         <div class="text-gray-400 fw-bold fs-4">
-          Already have an account?
+          Bir hesabınız varsa
 
           <router-link to="/sign-in" class="link-primary fw-bolder">
-            Sign in here
+            Giriş Yapın
           </router-link>
         </div>
         <!--end::Link-->
       </div>
       <!--end::Heading-->
 
-      <!--begin::Action-->
-      <button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
-        <img
-          alt="Logo"
-          src="media/svg/brand-logos/google-icon.svg"
-          class="h-20px me-3"
-        />
-        Sign in with Google
-      </button>
-      <!--end::Action-->
-
-      <!--begin::Separator-->
-      <div class="d-flex align-items-center mb-10">
-        <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-        <span class="fw-bold text-gray-400 fs-7 mx-2">OR</span>
-        <div class="border-bottom border-gray-300 mw-50 w-100"></div>
-      </div>
-      <!--end::Separator-->
-
       <!--begin::Input group-->
       <div class="row fv-row mb-7">
         <!--begin::Col-->
         <div class="col-xl-6">
-          <label class="form-label fw-bolder text-dark fs-6">First Name</label>
+          <label class="form-label fw-bolder text-dark fs-6">Adınız</label>
           <Field
             class="form-control form-control-lg form-control-solid"
             type="text"
             placeholder=""
-            name="first_name"
+            name="firstname"
             autocomplete="off"
           />
           <div class="fv-plugins-message-container">
@@ -68,12 +49,12 @@
 
         <!--begin::Col-->
         <div class="col-xl-6">
-          <label class="form-label fw-bolder text-dark fs-6">Last Name</label>
+          <label class="form-label fw-bolder text-dark fs-6">Soyadınız</label>
           <Field
             class="form-control form-control-lg form-control-solid"
             type="text"
             placeholder=""
-            name="last_name"
+            name="lastname"
             autocomplete="off"
           />
           <div class="fv-plugins-message-container">
@@ -88,7 +69,7 @@
 
       <!--begin::Input group-->
       <div class="fv-row mb-7">
-        <label class="form-label fw-bolder text-dark fs-6">Email</label>
+        <label class="form-label fw-bolder text-dark fs-6">Eposta</label>
         <Field
           class="form-control form-control-lg form-control-solid"
           type="email"
@@ -109,7 +90,7 @@
         <!--begin::Wrapper-->
         <div class="mb-1">
           <!--begin::Label-->
-          <label class="form-label fw-bolder text-dark fs-6"> Password </label>
+          <label class="form-label fw-bolder text-dark fs-6"> Parola </label>
           <!--end::Label-->
 
           <!--begin::Input wrapper-->
@@ -151,7 +132,7 @@
         <!--end::Wrapper-->
         <!--begin::Hint-->
         <div class="text-muted">
-          Use 8 or more characters with a mix of letters, numbers & symbols.
+          Parolanız, büyük/küçük harf, rakam ve sembollerden oluşan en az 8 hane olsun.
         </div>
         <!--end::Hint-->
       </div>
@@ -160,13 +141,13 @@
       <!--begin::Input group-->
       <div class="fv-row mb-5">
         <label class="form-label fw-bolder text-dark fs-6"
-          >Confirm Password</label
+          >Parolayı Tekrarlayın</label
         >
         <Field
           class="form-control form-control-lg form-control-solid"
           type="password"
           placeholder=""
-          name="password_confirmation"
+          name="confirmation"
           autocomplete="off"
         />
         <div class="fv-plugins-message-container">
@@ -187,8 +168,7 @@
             value="1"
           />
           <span class="form-check-label fw-bold text-gray-700 fs-6">
-            I Agree &
-            <a href="#" class="ms-1 link-primary">Terms and conditions</a>.
+            <a href="#" class="ms-1 link-primary">Kullanıcı Sözleşmesi</a>'ni  okudum &amp; onaylıyorum!
           </span>
         </label>
       </div>
@@ -202,9 +182,9 @@
           type="submit"
           class="btn btn-lg btn-primary"
         >
-          <span class="indicator-label"> Submit </span>
+          <span class="indicator-label"> Gönder </span>
           <span class="indicator-progress">
-            Please wait...
+            Lütfen bekleyin...
             <span
               class="spinner-border spinner-border-sm align-middle ms-2"
             ></span>
@@ -242,14 +222,15 @@ export default defineComponent({
     const submitButton = ref<HTMLButtonElement | null>(null);
 
     const registration = Yup.object().shape({
-      first_name: Yup.string().required().label("Name"),
-      last_name: Yup.string().required().label("Surname"),
-      email: Yup.string().min(4).required().email().label("Email"),
-      password: Yup.string().required().label("Password"),
-      password_confirmation: Yup.string()
+      firstname: Yup.string().min(3).required().label("İsim"),
+      lastname: Yup.string().min(3).required().label("Soyisim"),
+      email: Yup.string().min(4).required().email().label("Eposta"),
+      password: Yup.string().min(8).required().label("Parola"),
+      toc: Yup.bool().required("Şartları kabul etmelisiniz!").label("Şartlar"),
+      confirmation: Yup.string()
         .required()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
-        .label("Password Confirmation"),
+        .oneOf([Yup.ref("password"), null], "Parolalar eşleşmeli!")
+        .label("Parola Onaylaması"),
     });
 
     onMounted(() => {
@@ -276,23 +257,20 @@ export default defineComponent({
 
       if (!error) {
         Swal.fire({
-          text: "You have successfully logged in!",
+          text: "Kayıt işleminiz başarıyla bitti!",
           icon: "success",
           buttonsStyling: false,
-          confirmButtonText: "Ok, got it!",
+          confirmButtonText: "Tamamdır",
           customClass: {
             confirmButton: "btn fw-bold btn-light-primary",
           },
-        }).then(function () {
-          // Go to page after successfully login
-          router.push({ name: "dashboard" });
         });
       } else {
         Swal.fire({
-          text: error[0],
+          text: error,
           icon: "error",
           buttonsStyling: false,
-          confirmButtonText: "Try again!",
+          confirmButtonText: "Tekrar Deneyin!",
           customClass: {
             confirmButton: "btn fw-bold btn-light-danger",
           },

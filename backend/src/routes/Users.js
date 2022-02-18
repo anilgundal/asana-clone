@@ -14,7 +14,7 @@ router.route("/").patch(authenticate, validate(validation.changeValidation), Use
 router.route("/login").post(validate(validation.loginValidation), UserController.login);
 router.route("/verify_token").post(authenticate, UserController.verify_token);
 router.route("/projects").get(authenticate, UserController.projectList);
-router.route("/reset-password").post(validate(validation.resetPasswordValidation), UserController.resetPassword);
+router.route("/forgot_password").post(validate(validation.resetPasswordValidation), UserController.resetPassword);
 router.route("/change-password").patch(authenticate, validate(validation.changePasswordValidation), UserController.changePassword);
 router.route("/upload-picture").post(authenticate, UserController.uploadProfile);
 router.route("/:id").delete(idChecker, authenticate, UserController.remove);

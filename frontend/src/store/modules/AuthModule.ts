@@ -85,7 +85,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         this.context.commit(Mutations.SET_AUTH, data);
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
+        this.context.commit(Mutations.SET_ERROR, {error:response.data.message});
       });
   }
 
@@ -101,7 +101,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         this.context.commit(Mutations.SET_AUTH, data);
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
+        this.context.commit(Mutations.SET_ERROR,{error:response.data.message});
       });
   }
 
@@ -112,7 +112,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         this.context.commit(Mutations.SET_ERROR, {});
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
+        this.context.commit(Mutations.SET_ERROR, {error:response.data.message});
       });
   }
 
@@ -125,7 +125,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
           this.context.commit(Mutations.SET_AUTH, data);
         })
         .catch(({ response }) => {
-          this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
+          this.context.commit(Mutations.SET_ERROR, response);
           this.context.commit(Mutations.PURGE_AUTH);
         });
     } else {
