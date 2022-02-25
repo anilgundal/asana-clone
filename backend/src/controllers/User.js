@@ -123,7 +123,7 @@ class UserController {
         }
     }
     verify_token (req, res) {
-        return res.status(httpStatus.OK).send({message : "Verifield!"});
+        return res.status(httpStatus.OK).send({message : res.body});
     }
 }
 module.exports = new UserController();

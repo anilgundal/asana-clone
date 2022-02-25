@@ -17,14 +17,11 @@
         <div class="d-flex flex-column">
           <div class="fw-bolder d-flex align-items-center fs-5">
             Max Smith
-            <span
-              class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"
+            <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"
               >Pro</span
             >
           </div>
-          <a href="#" class="fw-bold text-muted text-hover-primary fs-7"
-            >max@kt.com</a
-          >
+          <a href="#" class="fw-bold text-muted text-hover-primary fs-7">max@kt.com</a>
         </div>
         <!--end::Username-->
       </div>
@@ -48,9 +45,7 @@
       <router-link to="/pages/profile/overview" class="menu-link px-5">
         <span class="menu-text">My Projects</span>
         <span class="menu-badge">
-          <span class="badge badge-light-danger badge-circle fw-bolder fs-7"
-            >3</span
-          >
+          <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
         </span>
       </router-link>
     </div>
@@ -118,9 +113,7 @@
         <!--begin::Menu item-->
         <div class="menu-item px-3">
           <div class="menu-content px-3">
-            <label
-              class="form-check form-switch form-check-custom form-check-solid"
-            >
+            <label class="form-check form-switch form-check-custom form-check-solid">
               <input
                 class="form-check-input w-30px h-20px"
                 type="checkbox"
@@ -128,9 +121,7 @@
                 checked="checked"
                 name="notifications"
               />
-              <span class="form-check-label text-muted fs-7">
-                Notifications
-              </span>
+              <span class="form-check-label text-muted fs-7"> Notifications </span>
             </label>
           </div>
         </div>
@@ -186,11 +177,7 @@
             :class="{ active: currentLanguage('en') }"
           >
             <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/united-states.svg"
-                alt="metronic"
-              />
+              <img class="rounded-1" src="media/flags/united-states.svg" alt="metronic" />
             </span>
             English
           </a>
@@ -206,11 +193,7 @@
             :class="{ active: currentLanguage('es') }"
           >
             <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/spain.svg"
-                alt="metronic"
-              />
+              <img class="rounded-1" src="media/flags/spain.svg" alt="metronic" />
             </span>
             Spanish
           </a>
@@ -226,11 +209,7 @@
             :class="{ active: currentLanguage('de') }"
           >
             <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/germany.svg"
-                alt="metronic"
-              />
+              <img class="rounded-1" src="media/flags/germany.svg" alt="metronic" />
             </span>
             German
           </a>
@@ -246,11 +225,7 @@
             :class="{ active: currentLanguage('ja') }"
           >
             <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/japan.svg"
-                alt="metronic"
-              />
+              <img class="rounded-1" src="media/flags/japan.svg" alt="metronic" />
             </span>
             Japanese
           </a>
@@ -266,11 +241,7 @@
             :class="{ active: currentLanguage('fr') }"
           >
             <span class="symbol symbol-20px me-4">
-              <img
-                class="rounded-1"
-                src="media/flags/france.svg"
-                alt="metronic"
-              />
+              <img class="rounded-1" src="media/flags/france.svg" alt="metronic" />
             </span>
             French
           </a>
@@ -341,9 +312,7 @@ export default defineComponent({
     };
 
     const signOut = () => {
-      store
-        .dispatch(Actions.LOGOUT)
-        .then(() => router.push({ name: "sign-in" }));
+      store.dispatch(Actions.LOGOUT).then(() => router.push({ name: "sign-in" }));
     };
 
     const setLang = (lang) => {
