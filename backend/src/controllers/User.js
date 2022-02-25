@@ -34,7 +34,7 @@ class UserController {
                     refreshToken: generateRefreshToken(user),
                 }
             };
-            delete user.password;
+            delete user.password, user.createdAt, user.updatedAt;
             res.status(httpStatus.OK).send(user);
         }).catch((e) => res.status(httpStatus.NOT_FOUND).send({message:e}));
     }
@@ -123,7 +123,7 @@ class UserController {
         }
     }
     verify_token (req, res) {
-        return res.status(httpStatus.OK).send({message : res.body});
+        return res.status(httpStatus.OK).send(req.user);
     }
 }
 module.exports = new UserController();

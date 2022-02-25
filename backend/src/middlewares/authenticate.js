@@ -8,6 +8,7 @@ const authenticateToken = (req, res, next) => {
     JWT.verify(token, process.env.ACCESS_TOKEN_SECRET_KEY, (err, usr) => {
         if(err) return res.status(httpStatus.FORBIDDEN).send({message: "Bu sayfa gizlidir!"});
         req.user = usr?._doc;
+        delete req.user.password; delete req.user.createdAt; delete req.user.updatedAt;
         next();
     });
 };
