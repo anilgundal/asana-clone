@@ -125,7 +125,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
           this.context.commit(Mutations.SET_AUTH, data);
         })
         .catch(({ response }) => {
-          this.context.commit(Mutations.SET_ERROR, response.data.errors);
+          this.context.commit(Mutations.SET_ERROR, response);
         });
     } else {
       this.context.commit(Mutations.PURGE_AUTH);
