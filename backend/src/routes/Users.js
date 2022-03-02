@@ -9,11 +9,12 @@ const UserController = require('../controllers/User');
 router.get('/', UserController.list);
 
 // validate'e schemaların içerisindeki createValidation'ı aktar
+router.route("/profile/:id").get(idChecker, authenticate, UserController.profileDetails);
+router.route("/projects").get(authenticate, UserController.projectList);
 router.route("/register").post(validate(validation.insertValidation), UserController.insert);
 router.route("/").patch(authenticate, validate(validation.changeValidation), UserController.change);// user'ı bildiğimiz için id istemedik!
 router.route("/login").post(validate(validation.loginValidation), UserController.login);
 router.route("/verify_token").post(authenticate, UserController.verify_token);
-router.route("/projects").get(authenticate, UserController.projectList);
 router.route("/forgot_password").post(validate(validation.resetPasswordValidation), UserController.resetPassword);
 router.route("/change-password").patch(authenticate, validate(validation.changePasswordValidation), UserController.changePassword);
 router.route("/upload-picture").post(authenticate, UserController.uploadProfile);

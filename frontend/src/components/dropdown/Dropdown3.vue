@@ -6,22 +6,20 @@
   >
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
-        Payments
-      </div>
+      <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Payments</div>
     </div>
     <!--end::Menu item-->
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <a href="#" class="menu-link px-5"> Create invoice </a>
+      <a href="#" class="menu-link px-5"> Fatura Oluştur </a>
     </div>
     <!--end::Menu item-->
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
       <a href="#" class="menu-link flex-stack px-5">
-        Create payments
+        Ödeme Oluştur
 
         <i
           class="fas fa-exclamation-circle ms-2 fs-7"
@@ -70,9 +68,7 @@
         <!--begin::Menu item-->
         <div class="menu-item px-3">
           <div class="menu-content px-3">
-            <label
-              class="form-check form-switch form-check-custom form-check-solid"
-            >
+            <label class="form-check form-switch form-check-custom form-check-solid">
               <input
                 class="form-check-input w-30px h-20px"
                 type="checkbox"
@@ -102,9 +98,7 @@
 
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-      <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">
-        Account
-      </div>
+      <div class="menu-content text-muted pb-2 px-5 fs-7 text-uppercase">Account</div>
     </div>
     <!--end::Menu item-->
 

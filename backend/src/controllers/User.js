@@ -125,5 +125,12 @@ class UserController {
     verify_token (req, res) {
         return res.status(httpStatus.OK).send(req.user);
     }
+    profileDetails (req, res) {
+        User.read({_id: req.params.id}, true)
+        .then(user => {
+            return (!user) ? ApiError.notFound() : res.status(httpStatus.OK).send(user);
+        })
+        .catch(e => new ApiError(e?.message));
+    }
 }
 module.exports = new UserController();

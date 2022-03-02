@@ -1,6 +1,7 @@
 <template>
   <!--begin::details View-->
   <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+    {{ profileDetails }}
     <!--begin::Card header-->
     <div class="card-header cursor-pointer">
       <!--begin::Card title-->
@@ -10,9 +11,7 @@
       <!--end::Card title-->
 
       <!--begin::Action-->
-      <router-link
-        to="/account/settings"
-        class="btn btn-primary align-self-center"
+      <router-link to="/account/settings" class="btn btn-primary align-self-center"
         >Edit Profile</router-link
       >
       <!--end::Action-->
@@ -29,7 +28,9 @@
 
         <!--begin::Col-->
         <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">Max Smith</span>
+          <span class="fw-bolder fs-6 text-dark"
+            >{{ profileDetails.firstname }} {{ profileDetails.lastname }}</span
+          >
         </div>
         <!--end::Col-->
       </div>
@@ -80,9 +81,7 @@
 
         <!--begin::Col-->
         <div class="col-lg-8">
-          <a href="#" class="fw-bold fs-6 text-dark text-hover-primary"
-            >keenthemes.com</a
-          >
+          <a href="#" class="fw-bold fs-6 text-dark text-hover-primary">keenthemes.com</a>
         </div>
         <!--end::Col-->
       </div>
@@ -167,17 +166,13 @@
   <div class="row gy-10 gx-xl-10">
     <!--begin::Col-->
     <div class="col-xl-6">
-      <KTChartWidget1
-        widget-classes="card-xxl-stretch mb-5 mb-xl-10"
-      ></KTChartWidget1>
+      <KTChartWidget1 widget-classes="card-xxl-stretch mb-5 mb-xl-10"></KTChartWidget1>
     </div>
     <!--end::Col-->
 
     <!--begin::Col-->
     <div class="col-xl-6">
-      <KTListWidget1
-        widget-classes="card-xxl-stretch mb-5 mb-xl-10'"
-      ></KTListWidget1>
+      <KTListWidget1 widget-classes="card-xxl-stretch mb-5 mb-xl-10'"></KTListWidget1>
     </div>
     <!--end::Col-->
   </div>
@@ -187,17 +182,13 @@
   <div class="row gy-10 gx-xl-10">
     <!--begin::Col-->
     <div class="col-xl-6">
-      <KTListWidget5
-        widget-classes="card-xxl-stretch mb-5 mb-xl-10"
-      ></KTListWidget5>
+      <KTListWidget5 widget-classes="card-xxl-stretch mb-5 mb-xl-10"></KTListWidget5>
     </div>
     <!--end::Col-->
 
     <!--begin::Col-->
     <div class="col-xl-6">
-      <KTTableWidget5
-        widget-classes="card-xxl-stretch mb-5 mb-xl-10"
-      ></KTTableWidget5>
+      <KTTableWidget5 widget-classes="card-xxl-stretch mb-5 mb-xl-10"></KTTableWidget5>
     </div>
     <!--end::Col-->
   </div>
@@ -205,7 +196,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
+import ApiService from "@/core/services/ApiService";
+import JwtService from "@/core/services/JwtService";
 import KTChartWidget1 from "@/components/widgets/charts/Widget1.vue";
 import KTListWidget5 from "@/components/widgets/lists/Widget5.vue";
 import KTTableWidget5 from "@/components/widgets/tables/Widget5.vue";
@@ -220,10 +213,20 @@ export default defineComponent({
     KTTableWidget5,
     KTListWidget1,
   },
+
   setup() {
+    const profileDetails = ref("");
     onMounted(() => {
+      ApiService.setHeader();
+      ApiService.get("users/profile", "6218b45e61485ba649c615a4").then(({ data }) => {
+        profileDetails.value = data;
+      });
       setCurrentPageBreadcrumbs("Overview", ["Account"]);
     });
+
+    return {
+      profileDetails,
+    };
   },
 });
 </script>

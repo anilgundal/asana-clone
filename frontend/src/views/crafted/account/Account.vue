@@ -6,9 +6,7 @@
       <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
         <!--begin: Pic-->
         <div class="me-7 mb-4">
-          <div
-            class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
-          >
+          <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
             <img src="media/avatars/300-1.jpg" alt="image" />
             <div
               class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
@@ -20,16 +18,12 @@
         <!--begin::Info-->
         <div class="flex-grow-1">
           <!--begin::Title-->
-          <div
-            class="d-flex justify-content-between align-items-start flex-wrap mb-2"
-          >
+          <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
             <!--begin::User-->
             <div class="d-flex flex-column">
               <!--begin::Name-->
               <div class="d-flex align-items-center mb-2">
-                <a
-                  href="#"
-                  class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1"
+                <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1"
                   >Max Smith</a
                 >
                 <a href="#">
@@ -55,9 +49,7 @@
                   class="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
                 >
                   <span class="svg-icon svg-icon-4 me-1">
-                    <inline-svg
-                      src="media/icons/duotune/communication/com006.svg"
-                    />
+                    <inline-svg src="media/icons/duotune/communication/com006.svg" />
                   </span>
                   Developer
                 </a>
@@ -75,9 +67,7 @@
                   class="d-flex align-items-center text-gray-400 text-hover-primary mb-2"
                 >
                   <span class="svg-icon svg-icon-4 me-1">
-                    <inline-svg
-                      src="media/icons/duotune/communication/com011.svg"
-                    />
+                    <inline-svg src="media/icons/duotune/communication/com011.svg" />
                   </span>
                   max@kt.com
                 </a>
@@ -88,11 +78,7 @@
 
             <!--begin::Actions-->
             <div class="d-flex my-4">
-              <a
-                href="#"
-                class="btn btn-sm btn-light me-2"
-                id="kt_user_follow_button"
-              >
+              <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
                 <span class="svg-icon svg-icon-3 d-none">
                   <inline-svg src="media/icons/duotune/arrows/arr012.svg" />
                 </span>
@@ -213,13 +199,9 @@
             <!--end::Wrapper-->
 
             <!--begin::Progress-->
-            <div
-              class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3"
-            >
+            <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
               <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                <span class="fw-bold fs-6 text-gray-400"
-                  >Profile Compleation</span
-                >
+                <span class="fw-bold fs-6 text-gray-400">Profile Compleation</span>
                 <span class="fw-bolder fs-6">50%</span>
               </div>
 
@@ -284,6 +266,7 @@ import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 
 export default defineComponent({
   name: "kt-account",
+
   components: {
     Dropdown3,
   },
