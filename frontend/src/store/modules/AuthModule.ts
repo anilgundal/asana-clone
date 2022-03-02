@@ -85,7 +85,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         this.context.commit(Mutations.SET_AUTH, data);
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR, {error:response.data.message});
+        this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
       });
   }
 
@@ -98,10 +98,11 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
   [Actions.REGISTER](credentials) {
     return ApiService.post("users/register", credentials)
       .then(({ data }) => {
+        console.log(data);
         this.context.commit(Mutations.SET_AUTH, data);
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR,{error:response.data.message});
+        this.context.commit(Mutations.SET_ERROR,{error:response.data.errors});
       });
   }
 
@@ -112,7 +113,7 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
         this.context.commit(Mutations.SET_ERROR, {});
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR, {error:response.data.message});
+        this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
       });
   }
 

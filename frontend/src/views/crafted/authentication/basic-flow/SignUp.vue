@@ -36,12 +36,12 @@
             class="form-control form-control-lg form-control-solid"
             type="text"
             placeholder=""
-            name="firstname"
+            name="name"
             autocomplete="off"
           />
           <div class="fv-plugins-message-container">
             <div class="fv-help-block">
-              <ErrorMessage name="first_name" />
+              <ErrorMessage name="name" />
             </div>
           </div>
         </div>
@@ -54,12 +54,12 @@
             class="form-control form-control-lg form-control-solid"
             type="text"
             placeholder=""
-            name="lastname"
+            name="surname"
             autocomplete="off"
           />
           <div class="fv-plugins-message-container">
             <div class="fv-help-block">
-              <ErrorMessage name="last_name" />
+              <ErrorMessage name="surname" />
             </div>
           </div>
         </div>
@@ -123,9 +123,7 @@
             <div
               class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"
             ></div>
-            <div
-              class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"
-            ></div>
+            <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
           </div>
           <!--end::Meter-->
         </div>
@@ -140,9 +138,7 @@
 
       <!--begin::Input group-->
       <div class="fv-row mb-5">
-        <label class="form-label fw-bolder text-dark fs-6"
-          >Parolayı Tekrarlayın</label
-        >
+        <label class="form-label fw-bolder text-dark fs-6">Parolayı Tekrarlayın</label>
         <Field
           class="form-control form-control-lg form-control-solid"
           type="password"
@@ -152,7 +148,7 @@
         />
         <div class="fv-plugins-message-container">
           <div class="fv-help-block">
-            <ErrorMessage name="password_confirmation" />
+            <ErrorMessage name="confirmation" />
           </div>
         </div>
       </div>
@@ -161,15 +157,16 @@
       <!--begin::Input group-->
       <div class="fv-row mb-10">
         <label class="form-check form-check-custom form-check-solid">
-          <Field
-            class="form-check-input"
-            type="checkbox"
-            name="toc"
-            value="1"
-          />
-          <span class="form-check-label fw-bold text-gray-700 fs-6">
-            <a href="#" class="ms-1 link-primary">Kullanıcı Sözleşmesi</a>'ni  okudum &amp; onaylıyorum!
+          <Field class="form-check-input" type="checkbox" name="toc" value="1" />
+          <span class="form-check-label fw-bold text-gray-700 fs-6 mb-7">
+            <a href="#" class="ms-1 link-primary">Kullanıcı Sözleşmesi</a>'ni okudum &amp;
+            onaylıyorum!
           </span>
+          <div class="fv-plugins-message-container">
+            <div class="fv-help-block">
+              <ErrorMessage name="toc" />
+            </div>
+          </div>
         </label>
       </div>
       <!--end::Input group-->
@@ -185,9 +182,7 @@
           <span class="indicator-label"> Gönder </span>
           <span class="indicator-progress">
             Lütfen bekleyin...
-            <span
-              class="spinner-border spinner-border-sm align-middle ms-2"
-            ></span>
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
         </button>
       </div>
@@ -222,15 +217,15 @@ export default defineComponent({
     const submitButton = ref<HTMLButtonElement | null>(null);
 
     const registration = Yup.object().shape({
-      firstname: Yup.string().min(3).required().label("İsim"),
-      lastname: Yup.string().min(3).required().label("Soyisim"),
-      email: Yup.string().min(4).required().email().label("Eposta"),
-      password: Yup.string().min(8).required().label("Parola"),
+      name: Yup.string().min(3).required().label("isim"),
+      surname: Yup.string().min(3).required().label("soyisim"),
+      email: Yup.string().min(4).required().email().label("eposta"),
+      password: Yup.string().min(8).required().label("parola"),
       toc: Yup.bool().required("Şartları kabul etmelisiniz!").label("Şartlar"),
       confirmation: Yup.string()
         .required()
-        .oneOf([Yup.ref("password"), null], "Parolalar eşleşmeli!")
-        .label("Parola Onaylaması"),
+        .oneOf([Yup.ref("password"), null], "Parolalar Eşleşmeli!")
+        .label("Parola Tekrarı"),
     });
 
     onMounted(() => {

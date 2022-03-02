@@ -1,7 +1,6 @@
 <template>
   <!--begin::details View-->
   <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
-    {{ profileDetails }}
     <!--begin::Card header-->
     <div class="card-header cursor-pointer">
       <!--begin::Card title-->
@@ -11,7 +10,9 @@
       <!--end::Card title-->
 
       <!--begin::Action-->
-      <router-link to="/account/settings" class="btn btn-primary align-self-center"
+      <router-link
+        to="/crafted/account/settings"
+        class="btn btn-primary align-self-center"
         >Edit Profile</router-link
       >
       <!--end::Action-->
@@ -29,7 +30,7 @@
         <!--begin::Col-->
         <div class="col-lg-8">
           <span class="fw-bolder fs-6 text-dark"
-            >{{ profileDetails.firstname }} {{ profileDetails.lastname }}</span
+            >{{ profileDetails.name }} {{ profileDetails.surname }}</span
           >
         </div>
         <!--end::Col-->
@@ -205,6 +206,24 @@ import KTTableWidget5 from "@/components/widgets/tables/Widget5.vue";
 import KTListWidget1 from "@/components/widgets/lists/Widget1.vue";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 
+interface ProfileDetails {
+  avatar: string;
+  name: string;
+  surname: string;
+  company: string;
+  contactPhone: string;
+  companySite: string;
+  country: string;
+  language: string;
+  timezone: string;
+  currency: string;
+  communications: {
+    email: boolean;
+    phone: boolean;
+  };
+  allowMarketing: boolean;
+}
+
 export default defineComponent({
   name: "account-overview",
   components: {
@@ -215,7 +234,24 @@ export default defineComponent({
   },
 
   setup() {
-    const profileDetails = ref("");
+    const profileDetails = ref<ProfileDetails>({
+      avatar: "media/avatars/300-1.jpg",
+      name: "Max",
+      surname: "Smith",
+      company: "Keenthemes",
+      contactPhone: "044 3276 454 935",
+      companySite: "keenthemes.com",
+      country: "MY",
+      language: "msa",
+      timezone: "Kuala Lumpur",
+      currency: "USD",
+      communications: {
+        email: false,
+        phone: false,
+      },
+      allowMarketing: false,
+    });
+
     onMounted(() => {
       ApiService.setHeader();
       ApiService.get("users/profile", "6218b45e61485ba649c615a4").then(({ data }) => {

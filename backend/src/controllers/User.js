@@ -9,24 +9,24 @@ const { passwordToHash, generateAccessToken, generateRefreshToken  } = require('
 
 class UserController {
     async insert (req, res) {
-        if(req.body.password !== req.body.confirmation) return res.status(httpStatus.BAD_REQUEST).send({message:"Parolanız eşleşmedi!"});
+        if(req.body.password !== req.body.confirmation) return res.status(httpStatus.BAD_REQUEST).send({errors:"Parolanız eşleşmedi!"});
         req.body.password = passwordToHash( req.body.password );
         const userExists = await User.read({ email: req.body.email });
         if (userExists){
-            return res.status(httpStatus.UNAUTHORIZED).send({message:"Bu mail ile daha önce kayıt yapılmış!"});
+            return res.status(httpStatus.UNAUTHORIZED).send({errors:"Bu mail ile daha önce kayıt yapılmış!"});
         }else{
             User.create(req.body)
             .then(user => {
-                delete user.password; delete user.confirmation;
+                delete user.password, user.confirmation, user.createdAt, user.updatedAt;
                 res.status(httpStatus.CREATED).send(user)
             })
-            .catch(e => new ApiError({message:e?.message}));
+            .catch(e => new ApiError({errors:e?.message}));
         }
     }
     login (req, res) {
         req.body.password = passwordToHash( req.body.password );
         User.read(req.body).then(user  => {
-        if(!user) return res.status(httpStatus.NOT_FOUND).send({message:"Kullanıcı adı veya parolası yanlış!"});
+        if(!user) return res.status(httpStatus.NOT_FOUND).send({errors:"Kullanıcı adı veya parolası yanlış!"});
             user = {
                 ... user.toObject(),
                 token: {
@@ -36,17 +36,17 @@ class UserController {
             };
             delete user.password, user.createdAt, user.updatedAt;
             res.status(httpStatus.OK).send(user);
-        }).catch((e) => res.status(httpStatus.NOT_FOUND).send({message:e}));
+        }).catch((e) => res.status(httpStatus.NOT_FOUND).send({errors:e}));
     }
     list (req, res) {
         User.index()
         .then(result => res.status(httpStatus.OK).send(result))
-        .catch(e => new ApiError(e?.message));
+        .catch(e => new ApiError({errors:e?.message}));
     }
     projectList (req, res) {
         Project.index({user_id: req.user?._id})
         .then(result => res.status(httpStatus.OK).send(result))
-        .catch(e => new ApiError(e?.message));
+        .catch(e => new ApiError({errors:e?.message}));
     }
     resetPassword (req, res) {
         const newPass = uuid.v4()?.split("-")[0] || `usr-${new Date().getTime()}`;
@@ -60,27 +60,27 @@ class UserController {
                 Sisteme giriş yaptıktan sonra şifrenizi yenisi ile değiştirmeyi unutmayın! <br />
                 Yeni şifreniz: <b>${newPass}</b>`,
               });
-              res.status(httpStatus.OK).send({message: "Kayıtlı e-posta adresinize geçici şifrenizi gönderdik."})
-        }).catch(e => new ApiError(e?.message));
+              res.status(httpStatus.OK).send({errors: "Kayıtlı e-posta adresinize geçici şifrenizi gönderdik."})
+        }).catch(e => new ApiError({errors:e?.message}));
     }
     changePassword (req, res) {
         //! ...Şifre karşılaştırmaları sonradan hazırlancak.
         req.body.password = passwordToHash(req.body.password);
         User.update(req.user?._id, req.body)
         .then(updatedUser =>  res.status(httpStatus.OK).send({updatedUser : updatedUser}))
-        .catch(e => new ApiError(e?.message));
+        .catch(e => new ApiError({errors:e?.message}));
     
     }
     change (req, res) {
         User.update(req.user?._id, req.body)
         .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
-        .catch(e => new ApiError(e?.message));
+        .catch(e => new ApiError({errors:e?.message}));
     }
     remove (req, res) {
         User.delete(req.params?.id)
         .then(deletedItem => {
-            return (!deletedItem) ? next(ApiError.notFound()) : res.status(httpStatus.OK).send({message:"Kayıt silindi."})})
-        .catch(e => new ApiError(e?.message));
+            return (!deletedItem) ? next(ApiError.notFound()) : res.status(httpStatus.OK).send({errors:"Kayıt silindi."})})
+        .catch(e => new ApiError({errors:e?.message}));
     }
     uploadProfile (req, res, next) {
         /** path require edildi. join ile beraber ilgili yol bulundu
@@ -108,17 +108,17 @@ class UserController {
         if(req?.body?.picture){
             User.update(req.user?._id, req.body)
             .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
-            .catch(e => new ApiError(e?.message));
+            .catch(e => new ApiError({errors:e?.message}));
         }
         else if(req?.files?.picture){
             const extension = path.extname(req.files.picture.name);
             const fileName = `${req?.user?._id}${extension}`;
             const folderPath = path.join(__dirname, "../", "uploads/users", fileName);
             req.files.picture.mv(folderPath, function(err) {
-                if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Dosya yükleme başarısız oldu!", error:err});
+                if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({errors:"Dosya yükleme başarısız oldu!", error:err});
                 User.update(req.user._id, {picture: fileName})
-                .then(u => res.status(httpStatus.OK).send({message:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))
-                .catch(e => new ApiError(e?.message));
+                .then(u => res.status(httpStatus.OK).send({errors:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))
+                .catch(e => new ApiError({errors:e?.message}));
             });
         }
     }
@@ -130,7 +130,7 @@ class UserController {
         .then(user => {
             return (!user) ? ApiError.notFound() : res.status(httpStatus.OK).send(user);
         })
-        .catch(e => new ApiError(e?.message));
+        .catch(e => new ApiError({errors:e?.message}));
     }
 }
 module.exports = new UserController();

@@ -1,13 +1,11 @@
 <template>
-  <div
-    class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto"
-  >
+  <div class="aside-primary d-flex flex-column align-items-lg-center flex-row-auto">
     <div
       class="aside-logo d-none d-lg-flex flex-column align-items-center flex-column-auto py-10"
       id="kt_aside_logo"
     >
       <a href="#">
-        <img alt="Logo" src="media/logos/logo-demo7.svg" class="h-30px" />
+        <img alt="Logo" src="media/logos/amblem.png" />
       </a>
     </div>
 
@@ -209,10 +207,7 @@
         </div>
       </div>
 
-      <div
-        class="d-flex align-items-center mb-10"
-        id="kt_header_user_menu_toggle"
-      >
+      <div class="d-flex align-items-center mb-10" id="kt_header_user_menu_toggle">
         <div
           class="cursor-pointer symbol symbol-40px"
           data-kt-menu-trigger="click"

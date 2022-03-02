@@ -6,13 +6,13 @@ const TaskSchema = new Mongoose.Schema({
     description: String,
     assigned_to: {
         type: Mongoose.Types.ObjectId,
-        ref: "user"// baş harfi büyük yazınca düzeldi!
+        ref: "user"
     },
     due_date: Date,
     statuses: [String],
     section_id: {
         type: Mongoose.Types.ObjectId,
-        ref: "section"// baş harfi büyük yazınca düzeldi!
+        ref: "section"
     },
     project_id:{
         type: Mongoose.Types.ObjectId,
@@ -20,7 +20,7 @@ const TaskSchema = new Mongoose.Schema({
     },
     user_id: {
         type: Mongoose.Types.ObjectId,
-        ref: "user"// baş harfi büyük yazınca düzeldi!
+        ref: "user"
     },
     order: Number,
     isCompleted: Boolean,

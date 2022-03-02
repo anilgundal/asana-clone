@@ -2,11 +2,23 @@ const Mongoose = require('mongoose');
 const logger = require("../scripts/logger/Users");
 
 const UserSchema = new Mongoose.Schema({
-    firstname: String,
-    lastname: String,
+    avatar: String,
+    name: String,
+    surname: String,
+    company: String,
+    contactPhone: String,
+    companySite: String,
+    country: String,
+    language: String,
+    timezone: String,
+    currency: String,
+    communications: {
+        email: Boolean,
+        phone: Boolean
+    },
+    allowMarketing: Boolean,
     password: String,
     email: String,
-    picture: String
 }, {timestamps:true, versionKey:false });
 
 UserSchema.pre("save", (next) => {

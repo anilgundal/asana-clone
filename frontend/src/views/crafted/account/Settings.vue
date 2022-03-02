@@ -92,9 +92,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label required fw-bold fs-6"
-              >Full Name</label
-            >
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">Full Name</label>
             <!--end::Label-->
 
             <!--begin::Col-->
@@ -144,9 +142,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label required fw-bold fs-6"
-              >Company</label
-            >
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">Company</label>
             <!--end::Label-->
 
             <!--begin::Col-->
@@ -204,9 +200,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label fw-bold fs-6"
-              >Company Site</label
-            >
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Company Site</label>
             <!--end::Label-->
 
             <!--begin::Col-->
@@ -301,9 +295,7 @@
                 <option value="CO">Colombia</option>
                 <option value="KM">Comoros</option>
                 <option value="CG">Congo</option>
-                <option value="CD">
-                  Congo, the Democratic Republic of the
-                </option>
+                <option value="CD">Congo, the Democratic Republic of the</option>
                 <option value="CK">Cook Islands</option>
                 <option value="CR">Costa Rica</option>
                 <option value="CI">Côte d'Ivoire</option>
@@ -369,9 +361,7 @@
                 <option value="KZ">Kazakhstan</option>
                 <option value="KE">Kenya</option>
                 <option ue="KI">Kiribati</option>
-                <option value="KP">
-                  Korea, Democratic People's Republic of
-                </option>
+                <option value="KP">Korea, Democratic People's Republic of</option>
                 <option value="KW">Kuwait</option>
                 <option value="KG">Kyrgyzstan</option>
                 <option value="LA">Lao People's Democratic Republic</option>
@@ -384,9 +374,7 @@
                 <option value="LT">Lithuania</option>
                 <option value="LU">Luxembourg</option>
                 <option value="MO">Macao</option>
-                <option value="MK">
-                  Macedonia, the former Yugoslav Republic of
-                </option>
+                <option value="MK">Macedonia, the former Yugoslav Republic of</option>
                 <option value="MG">Madagascar</option>
                 <option value="MW">Malawi</option>
                 <option value="MY">Malaysia</option>
@@ -440,9 +428,7 @@
                 <option value="RU">Russian Federation</option>
                 <option value="RW">Rwanda</option>
                 <option value="BL">Saint Barthélemy</option>
-                <option value="SH">
-                  Saint Helena, Ascension and Tristan da Cunha
-                </option>
+                <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
                 <option value="KN">Saint Kitts and Nevis</option>
                 <option value="LC">Saint Lucia</option>
                 <option value="MF">Saint Martin (French part)</option>
@@ -463,9 +449,7 @@
                 <option value="SB">Solomon Islands</option>
                 <option value="SO">Somalia</option>
                 <option value="ZA">South Africa</option>
-                <option value="GS">
-                  South Georgia and the South Sandwich Islands
-                </option>
+                <option value="GS">South Georgia and the South Sandwich Islands</option>
                 <option value="KR">South Korea</option>
                 <option value="SS">South Sudan</option>
                 <option value="ES">Spain</option>
@@ -521,9 +505,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label required fw-bold fs-6"
-              >Language</label
-            >
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">Language</label>
             <!--end::Label-->
 
             <!--begin::Col-->
@@ -591,8 +573,8 @@
 
               <!--begin::Hint-->
               <div class="form-text">
-                Please select a preferred language, including date, time, and
-                number formatting.
+                Please select a preferred language, including date, time, and number
+                formatting.
               </div>
               <!--end::Hint-->
             </div>
@@ -603,9 +585,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label required fw-bold fs-6"
-              >Time Zone</label
-            >
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">Time Zone</label>
             <!--end::Label-->
 
             <!--begin::Col-->
@@ -616,28 +596,16 @@
                 class="form-select form-select-solid form-select-lg"
                 v-model="profileDetails.timezone"
               >
-                <option
-                  data-bs-offset="-39600"
-                  value="International Date Line West"
-                >
+                <option data-bs-offset="-39600" value="International Date Line West">
                   (GMT-11:00) International Date Line West
                 </option>
                 <option data-bs-offset="-39600" value="Midway Island">
                   (GMT-11:00) Midway Island
                 </option>
-                <option data-bs-offset="-39600" value="Samoa">
-                  (GMT-11:00) Samoa
-                </option>
-                <option data-bs-offset="-36000" value="Hawaii">
-                  (GMT-10:00) Hawaii
-                </option>
-                <option data-bs-offset="-28800" value="Alaska">
-                  (GMT-08:00) Alaska
-                </option>
-                <option
-                  data-bs-offset="-25200"
-                  value="Pacific Time (US &amp; Canada)"
-                >
+                <option data-bs-offset="-39600" value="Samoa">(GMT-11:00) Samoa</option>
+                <option data-bs-offset="-36000" value="Hawaii">(GMT-10:00) Hawaii</option>
+                <option data-bs-offset="-28800" value="Alaska">(GMT-08:00) Alaska</option>
+                <option data-bs-offset="-25200" value="Pacific Time (US &amp; Canada)">
                   (GMT-07:00) Pacific Time (US &amp; Canada)
                 </option>
                 <option data-bs-offset="-25200" value="Tijuana">
@@ -646,10 +614,7 @@
                 <option data-bs-offset="-25200" value="Arizona">
                   (GMT-07:00) Arizona
                 </option>
-                <option
-                  data-bs-offset="-21600"
-                  value="Mountain Time (US &amp; Canada)"
-                >
+                <option data-bs-offset="-21600" value="Mountain Time (US &amp; Canada)">
                   (GMT-06:00) Mountain Time (US &amp; Canada)
                 </option>
                 <option data-bs-offset="-21600" value="Chihuahua">
@@ -664,10 +629,7 @@
                 <option data-bs-offset="-21600" value="Central America">
                   (GMT-06:00) Central America
                 </option>
-                <option
-                  data-bs-offset="-18000"
-                  value="Central Time (US &amp; Canada)"
-                >
+                <option data-bs-offset="-18000" value="Central Time (US &amp; Canada)">
                   (GMT-05:00) Central Time (US &amp; Canada)
                 </option>
                 <option data-bs-offset="-18000" value="Guadalajara">
@@ -679,19 +641,10 @@
                 <option data-bs-offset="-18000" value="Monterrey">
                   (GMT-05:00) Monterrey
                 </option>
-                <option data-bs-offset="-18000" value="Bogota">
-                  (GMT-05:00) Bogota
-                </option>
-                <option data-bs-offset="-18000" value="Lima">
-                  (GMT-05:00) Lima
-                </option>
-                <option data-bs-offset="-18000" value="Quito">
-                  (GMT-05:00) Quito
-                </option>
-                <option
-                  data-bs-offset="-14400"
-                  value="Eastern Time (US &amp; Canada)"
-                >
+                <option data-bs-offset="-18000" value="Bogota">(GMT-05:00) Bogota</option>
+                <option data-bs-offset="-18000" value="Lima">(GMT-05:00) Lima</option>
+                <option data-bs-offset="-18000" value="Quito">(GMT-05:00) Quito</option>
+                <option data-bs-offset="-14400" value="Eastern Time (US &amp; Canada)">
                   (GMT-04:00) Eastern Time (US &amp; Canada)
                 </option>
                 <option data-bs-offset="-14400" value="Indiana (East)">
@@ -700,9 +653,7 @@
                 <option data-bs-offset="-14400" value="Caracas">
                   (GMT-04:00) Caracas
                 </option>
-                <option data-bs-offset="-14400" value="La Paz">
-                  (GMT-04:00) La Paz
-                </option>
+                <option data-bs-offset="-14400" value="La Paz">(GMT-04:00) La Paz</option>
                 <option data-bs-offset="-14400" value="Georgetown">
                   (GMT-04:00) Georgetown
                 </option>
@@ -731,22 +682,14 @@
                   (GMT-01:00) Cape Verde Is.
                 </option>
                 <option data-bs-offset="0" value="Azores">(GMT) Azores</option>
-                <option data-bs-offset="0" value="Monrovia">
-                  (GMT) Monrovia
-                </option>
+                <option data-bs-offset="0" value="Monrovia">(GMT) Monrovia</option>
                 <option data-bs-offset="0" value="UTC">(GMT) UTC</option>
-                <option data-bs-offset="3600" value="Dublin">
-                  (GMT+01:00) Dublin
-                </option>
+                <option data-bs-offset="3600" value="Dublin">(GMT+01:00) Dublin</option>
                 <option data-bs-offset="3600" value="Edinburgh">
                   (GMT+01:00) Edinburgh
                 </option>
-                <option data-bs-offset="3600" value="Lisbon">
-                  (GMT+01:00) Lisbon
-                </option>
-                <option data-bs-offset="3600" value="London">
-                  (GMT+01:00) London
-                </option>
+                <option data-bs-offset="3600" value="Lisbon">(GMT+01:00) Lisbon</option>
+                <option data-bs-offset="3600" value="London">(GMT+01:00) London</option>
                 <option data-bs-offset="3600" value="Casablanca">
                   (GMT+01:00) Casablanca
                 </option>
@@ -765,57 +708,33 @@
                 <option data-bs-offset="7200" value="Ljubljana">
                   (GMT+02:00) Ljubljana
                 </option>
-                <option data-bs-offset="7200" value="Prague">
-                  (GMT+02:00) Prague
-                </option>
+                <option data-bs-offset="7200" value="Prague">(GMT+02:00) Prague</option>
                 <option data-bs-offset="7200" value="Sarajevo">
                   (GMT+02:00) Sarajevo
                 </option>
-                <option data-bs-offset="7200" value="Skopje">
-                  (GMT+02:00) Skopje
-                </option>
-                <option data-bs-offset="7200" value="Warsaw">
-                  (GMT+02:00) Warsaw
-                </option>
-                <option data-bs-offset="7200" value="Zagreb">
-                  (GMT+02:00) Zagreb
-                </option>
+                <option data-bs-offset="7200" value="Skopje">(GMT+02:00) Skopje</option>
+                <option data-bs-offset="7200" value="Warsaw">(GMT+02:00) Warsaw</option>
+                <option data-bs-offset="7200" value="Zagreb">(GMT+02:00) Zagreb</option>
                 <option data-bs-offset="7200" value="Brussels">
                   (GMT+02:00) Brussels
                 </option>
                 <option data-bs-offset="7200" value="Copenhagen">
                   (GMT+02:00) Copenhagen
                 </option>
-                <option data-bs-offset="7200" value="Madrid">
-                  (GMT+02:00) Madrid
-                </option>
-                <option data-bs-offset="7200" value="Paris">
-                  (GMT+02:00) Paris
-                </option>
+                <option data-bs-offset="7200" value="Madrid">(GMT+02:00) Madrid</option>
+                <option data-bs-offset="7200" value="Paris">(GMT+02:00) Paris</option>
                 <option data-bs-offset="7200" value="Amsterdam">
                   (GMT+02:00) Amsterdam
                 </option>
-                <option data-bs-offset="7200" value="Berlin">
-                  (GMT+02:00) Berlin
-                </option>
-                <option data-bs-offset="7200" value="Bern">
-                  (GMT+02:00) Bern
-                </option>
-                <option data-bs-offset="7200" value="Rome">
-                  (GMT+02:00) Rome
-                </option>
+                <option data-bs-offset="7200" value="Berlin">(GMT+02:00) Berlin</option>
+                <option data-bs-offset="7200" value="Bern">(GMT+02:00) Bern</option>
+                <option data-bs-offset="7200" value="Rome">(GMT+02:00) Rome</option>
                 <option data-bs-offset="7200" value="Stockholm">
                   (GMT+02:00) Stockholm
                 </option>
-                <option data-bs-offset="7200" value="Vienna">
-                  (GMT+02:00) Vienna
-                </option>
-                <option data-bs-offset="7200" value="Cairo">
-                  (GMT+02:00) Cairo
-                </option>
-                <option data-bs-offset="7200" value="Harare">
-                  (GMT+02:00) Harare
-                </option>
+                <option data-bs-offset="7200" value="Vienna">(GMT+02:00) Vienna</option>
+                <option data-bs-offset="7200" value="Cairo">(GMT+02:00) Cairo</option>
+                <option data-bs-offset="7200" value="Harare">(GMT+02:00) Harare</option>
                 <option data-bs-offset="7200" value="Pretoria">
                   (GMT+02:00) Pretoria
                 </option>
@@ -825,51 +744,33 @@
                 <option data-bs-offset="10800" value="Helsinki">
                   (GMT+03:00) Helsinki
                 </option>
-                <option data-bs-offset="10800" value="Kiev">
-                  (GMT+03:00) Kiev
-                </option>
-                <option data-bs-offset="10800" value="Kyiv">
-                  (GMT+03:00) Kyiv
-                </option>
-                <option data-bs-offset="10800" value="Riga">
-                  (GMT+03:00) Riga
-                </option>
-                <option data-bs-offset="10800" value="Sofia">
-                  (GMT+03:00) Sofia
-                </option>
+                <option data-bs-offset="10800" value="Kiev">(GMT+03:00) Kiev</option>
+                <option data-bs-offset="10800" value="Kyiv">(GMT+03:00) Kyiv</option>
+                <option data-bs-offset="10800" value="Riga">(GMT+03:00) Riga</option>
+                <option data-bs-offset="10800" value="Sofia">(GMT+03:00) Sofia</option>
                 <option data-bs-offset="10800" value="Tallinn">
                   (GMT+03:00) Tallinn
                 </option>
                 <option data-bs-offset="10800" value="Vilnius">
                   (GMT+03:00) Vilnius
                 </option>
-                <option data-bs-offset="10800" value="Athens">
-                  (GMT+03:00) Athens
-                </option>
+                <option data-bs-offset="10800" value="Athens">(GMT+03:00) Athens</option>
                 <option data-bs-offset="10800" value="Istanbul">
                   (GMT+03:00) Istanbul
                 </option>
-                <option data-bs-offset="10800" value="Minsk">
-                  (GMT+03:00) Minsk
-                </option>
+                <option data-bs-offset="10800" value="Minsk">(GMT+03:00) Minsk</option>
                 <option data-bs-offset="10800" value="Jerusalem">
                   (GMT+03:00) Jerusalem
                 </option>
-                <option data-bs-offset="10800" value="Moscow">
-                  (GMT+03:00) Moscow
-                </option>
+                <option data-bs-offset="10800" value="Moscow">(GMT+03:00) Moscow</option>
                 <option data-bs-offset="10800" value="St. Petersburg">
                   (GMT+03:00) St. Petersburg
                 </option>
                 <option data-bs-offset="10800" value="Volgograd">
                   (GMT+03:00) Volgograd
                 </option>
-                <option data-bs-offset="10800" value="Kuwait">
-                  (GMT+03:00) Kuwait
-                </option>
-                <option data-bs-offset="10800" value="Riyadh">
-                  (GMT+03:00) Riyadh
-                </option>
+                <option data-bs-offset="10800" value="Kuwait">(GMT+03:00) Kuwait</option>
+                <option data-bs-offset="10800" value="Riyadh">(GMT+03:00) Riyadh</option>
                 <option data-bs-offset="10800" value="Nairobi">
                   (GMT+03:00) Nairobi
                 </option>
@@ -879,24 +780,16 @@
                 <option data-bs-offset="14400" value="Abu Dhabi">
                   (GMT+04:00) Abu Dhabi
                 </option>
-                <option data-bs-offset="14400" value="Muscat">
-                  (GMT+04:00) Muscat
-                </option>
-                <option data-bs-offset="14400" value="Baku">
-                  (GMT+04:00) Baku
-                </option>
+                <option data-bs-offset="14400" value="Muscat">(GMT+04:00) Muscat</option>
+                <option data-bs-offset="14400" value="Baku">(GMT+04:00) Baku</option>
                 <option data-bs-offset="14400" value="Tbilisi">
                   (GMT+04:00) Tbilisi
                 </option>
                 <option data-bs-offset="14400" value="Yerevan">
                   (GMT+04:00) Yerevan
                 </option>
-                <option data-bs-offset="16200" value="Tehran">
-                  (GMT+04:30) Tehran
-                </option>
-                <option data-bs-offset="16200" value="Kabul">
-                  (GMT+04:30) Kabul
-                </option>
+                <option data-bs-offset="16200" value="Tehran">(GMT+04:30) Tehran</option>
+                <option data-bs-offset="16200" value="Kabul">(GMT+04:30) Kabul</option>
                 <option data-bs-offset="18000" value="Ekaterinburg">
                   (GMT+05:00) Ekaterinburg
                 </option>
@@ -915,9 +808,7 @@
                 <option data-bs-offset="19800" value="Kolkata">
                   (GMT+05:30) Kolkata
                 </option>
-                <option data-bs-offset="19800" value="Mumbai">
-                  (GMT+05:30) Mumbai
-                </option>
+                <option data-bs-offset="19800" value="Mumbai">(GMT+05:30) Mumbai</option>
                 <option data-bs-offset="19800" value="New Delhi">
                   (GMT+05:30) New Delhi
                 </option>
@@ -927,18 +818,10 @@
                 <option data-bs-offset="20700" value="Kathmandu">
                   (GMT+05:45) Kathmandu
                 </option>
-                <option data-bs-offset="21600" value="Astana">
-                  (GMT+06:00) Astana
-                </option>
-                <option data-bs-offset="21600" value="Dhaka">
-                  (GMT+06:00) Dhaka
-                </option>
-                <option data-bs-offset="21600" value="Almaty">
-                  (GMT+06:00) Almaty
-                </option>
-                <option data-bs-offset="21600" value="Urumqi">
-                  (GMT+06:00) Urumqi
-                </option>
+                <option data-bs-offset="21600" value="Astana">(GMT+06:00) Astana</option>
+                <option data-bs-offset="21600" value="Dhaka">(GMT+06:00) Dhaka</option>
+                <option data-bs-offset="21600" value="Almaty">(GMT+06:00) Almaty</option>
+                <option data-bs-offset="21600" value="Urumqi">(GMT+06:00) Urumqi</option>
                 <option data-bs-offset="23400" value="Rangoon">
                   (GMT+06:30) Rangoon
                 </option>
@@ -948,9 +831,7 @@
                 <option data-bs-offset="25200" value="Bangkok">
                   (GMT+07:00) Bangkok
                 </option>
-                <option data-bs-offset="25200" value="Hanoi">
-                  (GMT+07:00) Hanoi
-                </option>
+                <option data-bs-offset="25200" value="Hanoi">(GMT+07:00) Hanoi</option>
                 <option data-bs-offset="25200" value="Jakarta">
                   (GMT+07:00) Jakarta
                 </option>
@@ -972,36 +853,24 @@
                 <option data-bs-offset="28800" value="Singapore">
                   (GMT+08:00) Singapore
                 </option>
-                <option data-bs-offset="28800" value="Taipei">
-                  (GMT+08:00) Taipei
-                </option>
-                <option data-bs-offset="28800" value="Perth">
-                  (GMT+08:00) Perth
-                </option>
+                <option data-bs-offset="28800" value="Taipei">(GMT+08:00) Taipei</option>
+                <option data-bs-offset="28800" value="Perth">(GMT+08:00) Perth</option>
                 <option data-bs-offset="28800" value="Irkutsk">
                   (GMT+08:00) Irkutsk
                 </option>
                 <option data-bs-offset="28800" value="Ulaan Bataar">
                   (GMT+08:00) Ulaan Bataar
                 </option>
-                <option data-bs-offset="32400" value="Seoul">
-                  (GMT+09:00) Seoul
-                </option>
-                <option data-bs-offset="32400" value="Osaka">
-                  (GMT+09:00) Osaka
-                </option>
+                <option data-bs-offset="32400" value="Seoul">(GMT+09:00) Seoul</option>
+                <option data-bs-offset="32400" value="Osaka">(GMT+09:00) Osaka</option>
                 <option data-bs-offset="32400" value="Sapporo">
                   (GMT+09:00) Sapporo
                 </option>
-                <option data-bs-offset="32400" value="Tokyo">
-                  (GMT+09:00) Tokyo
-                </option>
+                <option data-bs-offset="32400" value="Tokyo">(GMT+09:00) Tokyo</option>
                 <option data-bs-offset="32400" value="Yakutsk">
                   (GMT+09:00) Yakutsk
                 </option>
-                <option data-bs-offset="34200" value="Darwin">
-                  (GMT+09:30) Darwin
-                </option>
+                <option data-bs-offset="34200" value="Darwin">(GMT+09:30) Darwin</option>
                 <option data-bs-offset="34200" value="Adelaide">
                   (GMT+09:30) Adelaide
                 </option>
@@ -1011,21 +880,15 @@
                 <option data-bs-offset="36000" value="Melbourne">
                   (GMT+10:00) Melbourne
                 </option>
-                <option data-bs-offset="36000" value="Sydney">
-                  (GMT+10:00) Sydney
-                </option>
+                <option data-bs-offset="36000" value="Sydney">(GMT+10:00) Sydney</option>
                 <option data-bs-offset="36000" value="Brisbane">
                   (GMT+10:00) Brisbane
                 </option>
-                <option data-bs-offset="36000" value="Hobart">
-                  (GMT+10:00) Hobart
-                </option>
+                <option data-bs-offset="36000" value="Hobart">(GMT+10:00) Hobart</option>
                 <option data-bs-offset="36000" value="Vladivostok">
                   (GMT+10:00) Vladivostok
                 </option>
-                <option data-bs-offset="36000" value="Guam">
-                  (GMT+10:00) Guam
-                </option>
+                <option data-bs-offset="36000" value="Guam">(GMT+10:00) Guam</option>
                 <option data-bs-offset="36000" value="Port Moresby">
                   (GMT+10:00) Port Moresby
                 </option>
@@ -1038,9 +901,7 @@
                 <option data-bs-offset="39600" value="New Caledonia">
                   (GMT+11:00) New Caledonia
                 </option>
-                <option data-bs-offset="43200" value="Fiji">
-                  (GMT+12:00) Fiji
-                </option>
+                <option data-bs-offset="43200" value="Fiji">(GMT+12:00) Fiji</option>
                 <option data-bs-offset="43200" value="Kamchatka">
                   (GMT+12:00) Kamchatka
                 </option>
@@ -1070,9 +931,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label required fw-bold fs-6"
-              >Currency</label
-            >
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">Currency</label>
             <!--end::Label-->
 
             <!--begin::Col-->
@@ -1118,9 +977,7 @@
           <!--begin::Input group-->
           <div class="row mb-6">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label fw-bold fs-6"
-              >Communication</label
-            >
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Communication</label>
             <!--end::Label-->
 
             <!--begin::Col-->
@@ -1128,9 +985,7 @@
               <!--begin::Options-->
               <div class="d-flex align-items-center mt-3">
                 <!--begin::Option-->
-                <label
-                  class="form-check form-check-inline form-check-solid me-5"
-                >
+                <label class="form-check form-check-inline form-check-solid me-5">
                   <input
                     class="form-check-input"
                     name="communication[]"
@@ -1160,9 +1015,7 @@
           <!--begin::Input group-->
           <div class="row mb-0">
             <!--begin::Label-->
-            <label class="col-lg-4 col-form-label fw-bold fs-6"
-              >Allow Marketing</label
-            >
+            <label class="col-lg-4 col-form-label fw-bold fs-6">Allow Marketing</label>
             <!--begin::Label-->
 
             <!--begin::Label-->
@@ -1184,10 +1037,7 @@
 
         <!--begin::Actions-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-          <button
-            type="reset"
-            class="btn btn-white btn-active-light-primary me-2"
-          >
+          <button type="reset" class="btn btn-white btn-active-light-primary me-2">
             Discard
           </button>
 
@@ -1200,9 +1050,7 @@
             <span class="indicator-label"> Save Changes </span>
             <span class="indicator-progress">
               Please wait...
-              <span
-                class="spinner-border spinner-border-sm align-middle ms-2"
-              ></span>
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
             </span>
           </button>
         </div>
@@ -1256,9 +1104,7 @@
               <div class="row mb-6">
                 <div class="col-lg-6 mb-4 mb-lg-0">
                   <div class="fv-row mb-0">
-                    <label
-                      for="emailaddress"
-                      class="form-label fs-6 fw-bolder mb-3"
+                    <label for="emailaddress" class="form-label fs-6 fw-bolder mb-3"
                       >Enter New Email Address</label
                     >
                     <Field
@@ -1341,10 +1187,7 @@
 
         <!--begin::Password-->
         <div class="d-flex flex-wrap align-items-center mb-8">
-          <div
-            id="kt_signin_password"
-            :class="{ 'd-none': passwordFormDisplay }"
-          >
+          <div id="kt_signin_password" :class="{ 'd-none': passwordFormDisplay }">
             <div class="fs-4 fw-boldest mb-1">Password</div>
             <div class="fs-6 fw-bold text-gray-600">************</div>
           </div>
@@ -1368,9 +1211,7 @@
               <div class="row mb-6">
                 <div class="col-lg-4">
                   <div class="fv-row mb-0">
-                    <label
-                      for="currentpassword"
-                      class="form-label fs-6 fw-bolder mb-3"
+                    <label for="currentpassword" class="form-label fs-6 fw-bolder mb-3"
                       >Current Password</label
                     >
                     <Field
@@ -1388,9 +1229,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="fv-row mb-0">
-                    <label
-                      for="newpassword"
-                      class="form-label fs-6 fw-bolder mb-3"
+                    <label for="newpassword" class="form-label fs-6 fw-bolder mb-3"
                       >New Password</label
                     >
                     <Field
@@ -1408,9 +1247,7 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="fv-row mb-0">
-                    <label
-                      for="confirmpassword"
-                      class="form-label fs-6 fw-bolder mb-3"
+                    <label for="confirmpassword" class="form-label fs-6 fw-bolder mb-3"
                       >Confirm New Password</label
                     >
                     <Field
@@ -1508,9 +1345,9 @@
             <!--begin::Content-->
             <div class="fw-bold">
               <div class="fs-6 text-gray-600">
-                Two-factor authentication adds an extra layer of security to
-                your account. To log in, in you'll need to provide a 4 digit
-                amazing code. <a href="#" class="fw-bolder">Learn More</a>
+                Two-factor authentication adds an extra layer of security to your account.
+                To log in, in you'll need to provide a 4 digit amazing code.
+                <a href="#" class="fw-bolder">Learn More</a>
               </div>
             </div>
             <!--end::Content-->
@@ -1530,12 +1367,8 @@
               />
 
               <div class="d-flex flex-column">
-                <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder"
-                  >Google</a
-                >
-                <div class="fs-6 fw-bold text-gray-400">
-                  Plan properly your workflow
-                </div>
+                <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">Google</a>
+                <div class="fs-6 fw-bold text-gray-400">Plan properly your workflow</div>
               </div>
             </div>
             <div class="d-flex justify-content-end">
@@ -1557,16 +1390,10 @@
           <!--begin::Item-->
           <div class="d-flex flex-stack">
             <div class="d-flex">
-              <img
-                src="media/svg/brand-logos/github.svg"
-                class="w-30px me-6"
-                alt=""
-              />
+              <img src="media/svg/brand-logos/github.svg" class="w-30px me-6" alt="" />
 
               <div class="d-flex flex-column">
-                <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder"
-                  >Github</a
-                >
+                <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">Github</a>
                 <div class="fs-6 fw-bold text-gray-400">
                   Keep eye on on your Repositories
                 </div>
@@ -1598,9 +1425,7 @@
               />
 
               <div class="d-flex flex-column">
-                <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder"
-                  >Slack</a
-                >
+                <a href="#" class="fs-5 text-dark text-hover-primary fw-bolder">Slack</a>
                 <div class="fs-6 fw-bold text-gray-400">
                   Integrate Projects Discussions
                 </div>
@@ -1625,20 +1450,12 @@
 
       <!--begin::Card footer-->
       <div class="card-footer d-flex justify-content-end py-6 px-9">
-        <button class="btn btn-white btn-active-light-primary me-2">
-          Discard
-        </button>
-        <button
-          ref="submitButton2"
-          class="btn btn-primary"
-          @click="saveChanges2()"
-        >
+        <button class="btn btn-white btn-active-light-primary me-2">Discard</button>
+        <button ref="submitButton2" class="btn btn-primary" @click="saveChanges2()">
           <span class="indicator-label"> Save Changes </span>
           <span class="indicator-progress">
             Please wait...
-            <span
-              class="spinner-border spinner-border-sm align-middle ms-2"
-            ></span>
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
         </button>
       </div>
@@ -1672,9 +1489,7 @@
         <!--begin::Card body-->
         <div class="card-body border-top px-9 py-9">
           <!--begin::Option-->
-          <label
-            class="form-check form-check-custom form-check-solid align-items-start"
-          >
+          <label class="form-check form-check-custom form-check-solid align-items-start">
             <!--begin::Input-->
             <input
               class="form-check-input me-3"
@@ -1699,9 +1514,7 @@
           <!--end::Option-->
 
           <!--begin::Option-->
-          <label
-            class="form-check form-check-custom form-check-solid align-items-start"
-          >
+          <label class="form-check form-check-custom form-check-solid align-items-start">
             <!--begin::Input-->
             <input
               class="form-check-input me-3"
@@ -1727,9 +1540,7 @@
           <!--end::Option-->
 
           <!--begin::Option-->
-          <label
-            class="form-check form-check-custom form-check-solid align-items-start"
-          >
+          <label class="form-check form-check-custom form-check-solid align-items-start">
             <!--begin::Input-->
             <input
               class="form-check-input me-3"
@@ -1743,8 +1554,7 @@
             <span class="form-check-label d-flex flex-column align-items-start">
               <span class="fw-bolder fs-5 mb-0">Fee Collection</span>
               <span class="text-muted fs-6"
-                >Receive a notification each time you collect a fee from
-                sales</span
+                >Receive a notification each time you collect a fee from sales</span
               >
             </span>
             <!--end::Label-->
@@ -1755,9 +1565,7 @@
           <!--end::Option-->
 
           <!--begin::Option-->
-          <label
-            class="form-check form-check-custom form-check-solid align-items-start"
-          >
+          <label class="form-check form-check-custom form-check-solid align-items-start">
             <!--begin::Input-->
             <input
               class="form-check-input me-3"
@@ -1772,8 +1580,8 @@
             <span class="form-check-label d-flex flex-column align-items-start">
               <span class="fw-bolder fs-5 mb-0">Customer Payment Dispute</span>
               <span class="text-muted fs-6"
-                >Receive a notification if a payment is disputed by a customer
-                and for dispute purposes.</span
+                >Receive a notification if a payment is disputed by a customer and for
+                dispute purposes.</span
               >
             </span>
             <!--end::Label-->
@@ -1784,9 +1592,7 @@
           <!--end::Option-->
 
           <!--begin::Option-->
-          <label
-            class="form-check form-check-custom form-check-solid align-items-start"
-          >
+          <label class="form-check form-check-custom form-check-solid align-items-start">
             <!--begin::Input-->
             <input
               class="form-check-input me-3"
@@ -1800,8 +1606,8 @@
             <span class="form-check-label d-flex flex-column align-items-start">
               <span class="fw-bolder fs-5 mb-0">Refund Alerts</span>
               <span class="text-muted fs-6"
-                >Receive a notification if a payment is stated as risk by the
-                Finance Department.</span
+                >Receive a notification if a payment is stated as risk by the Finance
+                Department.</span
               >
             </span>
             <!--end::Label-->
@@ -1812,9 +1618,7 @@
           <!--end::Option-->
 
           <!--begin::Option-->
-          <label
-            class="form-check form-check-custom form-check-solid align-items-start"
-          >
+          <label class="form-check form-check-custom form-check-solid align-items-start">
             <!--begin::Input-->
             <input
               class="form-check-input me-3"
@@ -1829,8 +1633,8 @@
             <span class="form-check-label d-flex flex-column align-items-start">
               <span class="fw-bolder fs-5 mb-0">Invoice Payments</span>
               <span class="text-muted fs-6"
-                >Receive a notification if a customer sends an incorrect amount
-                to pay their invoice.</span
+                >Receive a notification if a customer sends an incorrect amount to pay
+                their invoice.</span
               >
             </span>
             <!--end::Label-->
@@ -1841,9 +1645,7 @@
           <!--end::Option-->
 
           <!--begin::Option-->
-          <label
-            class="form-check form-check-custom form-check-solid align-items-start"
-          >
+          <label class="form-check form-check-custom form-check-solid align-items-start">
             <!--begin::Input-->
             <input
               class="form-check-input me-3"
@@ -1872,20 +1674,12 @@
 
         <!--begin::Card footer-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-          <button class="btn btn-white btn-active-light-primary me-2">
-            Discard
-          </button>
-          <button
-            ref="submitButton3"
-            type="submit"
-            class="btn btn-primary px-6"
-          >
+          <button class="btn btn-white btn-active-light-primary me-2">Discard</button>
+          <button ref="submitButton3" type="submit" class="btn btn-primary px-6">
             <span class="indicator-label"> Save Changes </span>
             <span class="indicator-progress">
               Please wait...
-              <span
-                class="spinner-border spinner-border-sm align-middle ms-2"
-              ></span>
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
             </span>
           </button>
         </div>
@@ -1922,9 +1716,7 @@
         <div class="card-body border-top px-9 pt-3 pb-4">
           <!--begin::Table-->
           <div class="table-responsive">
-            <table
-              class="table table-row-dashed border-gray-300 align-middle gy-6"
-            >
+            <table class="table table-row-dashed border-gray-300 align-middle gy-6">
               <tbody class="fs-6 fw-bold">
                 <!--begin::Table row-->
                 <tr>
@@ -1983,10 +1775,7 @@
                         checked
                         data-kt-settings-notification="email"
                       />
-                      <label
-                        class="form-check-label ps-2"
-                        for="billing1"
-                      ></label>
+                      <label class="form-check-label ps-2" for="billing1"></label>
                     </div>
                   </td>
                   <td>
@@ -1999,10 +1788,7 @@
                         checked
                         data-kt-settings-notification="phone"
                       />
-                      <label
-                        class="form-check-label ps-2"
-                        for="billing2"
-                      ></label>
+                      <label class="form-check-label ps-2" for="billing2"></label>
                     </div>
                   </td>
                 </tr>
@@ -2051,10 +1837,7 @@
                         id="project1"
                         data-kt-settings-notification="email"
                       />
-                      <label
-                        class="form-check-label ps-2"
-                        for="project1"
-                      ></label>
+                      <label class="form-check-label ps-2" for="project1"></label>
                     </div>
                   </td>
                   <td>
@@ -2067,10 +1850,7 @@
                         checked
                         data-kt-settings-notification="phone"
                       />
-                      <label
-                        class="form-check-label ps-2"
-                        for="project2"
-                      ></label>
+                      <label class="form-check-label ps-2" for="project2"></label>
                     </div>
                   </td>
                 </tr>
@@ -2088,10 +1868,7 @@
                         id="newsletter1"
                         data-kt-settings-notification="email"
                       />
-                      <label
-                        class="form-check-label ps-2"
-                        for="newsletter1"
-                      ></label>
+                      <label class="form-check-label ps-2" for="newsletter1"></label>
                     </div>
                   </td>
                   <td class="border-bottom-0">
@@ -2103,10 +1880,7 @@
                         id="newsletter2"
                         data-kt-settings-notification="phone"
                       />
-                      <label
-                        class="form-check-label ps-2"
-                        for="newsletter2"
-                      ></label>
+                      <label class="form-check-label ps-2" for="newsletter2"></label>
                     </div>
                   </td>
                 </tr>
@@ -2120,20 +1894,12 @@
 
         <!--begin::Card footer-->
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-          <button class="btn btn-white btn-active-light-primary me-2">
-            Discard
-          </button>
-          <button
-            ref="submitButton4"
-            type="submit"
-            class="btn btn-primary px-6"
-          >
+          <button class="btn btn-white btn-active-light-primary me-2">Discard</button>
+          <button ref="submitButton4" type="submit" class="btn btn-primary px-6">
             <span class="indicator-label"> Save Changes </span>
             <span class="indicator-progress">
               Please wait...
-              <span
-                class="spinner-border spinner-border-sm align-middle ms-2"
-              ></span>
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
             </span>
           </button>
         </div>
@@ -2182,13 +1948,11 @@
             <div class="d-flex flex-stack flex-grow-1">
               <!--begin::Content-->
               <div class="fw-bold">
-                <h4 class="text-gray-800 fw-bolder">
-                  You Are Deactivating Your Account
-                </h4>
+                <h4 class="text-gray-800 fw-bolder">You Are Deactivating Your Account</h4>
 
                 <div class="fs-6 text-gray-600">
-                  For extra security, this requires you to confirm your email or
-                  phone number when you reset yousignr password. <br /><a
+                  For extra security, this requires you to confirm your email or phone
+                  number when you reset yousignr password. <br /><a
                     class="fw-bolder"
                     href="#"
                     >Learn more</a
@@ -2228,9 +1992,7 @@
             <span class="indicator-label"> Deactivate Account </span>
             <span class="indicator-progress">
               Please wait...
-              <span
-                class="spinner-border spinner-border-sm align-middle ms-2"
-              ></span>
+              <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
             </span>
           </button>
         </div>
@@ -2247,6 +2009,10 @@
 import { defineComponent, onMounted, ref } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
+
+import ApiService from "@/core/services/ApiService";
+import JwtService from "@/core/services/JwtService";
+
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
 
