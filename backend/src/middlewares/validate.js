@@ -11,7 +11,7 @@ const validate = (schema) => (req, res, next) => {
     // ["", "", ""] => "aaa, bbb, ccc" haline getirdik.
     const errorMessage = error.details?.map(detail => detail.message).join(", ");
     
-    res.status(httpStatus.BAD_REQUEST).json({errors:errorMessage});
+    res.status(httpStatus.BAD_REQUEST).json({message:errorMessage});
 
     return;
    }

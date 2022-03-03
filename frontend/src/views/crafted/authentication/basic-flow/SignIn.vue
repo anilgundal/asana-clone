@@ -51,9 +51,7 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-stack mb-2">
           <!--begin::Label-->
-          <label class="form-label fw-bolder text-dark fs-6 mb-0"
-            >Parola</label
-          >
+          <label class="form-label fw-bolder text-dark fs-6 mb-0">Parola</label>
           <!--end::Label-->
 
           <!--begin::Link-->
@@ -93,9 +91,7 @@
 
           <span class="indicator-progress">
             Lütfen bekleyin...
-            <span
-              class="spinner-border spinner-border-sm align-middle ms-2"
-            ></span>
+            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
           </span>
         </button>
         <!--end::Submit button-->
@@ -161,14 +157,13 @@ export default defineComponent({
           customClass: {
             confirmButton: "btn fw-bold btn-light-primary",
           },
-        })
-        .then(function () {
+        }).then(function () {
           // Go to page after successfully login
           router.push({ name: "dashboard" });
         });
       } else {
         Swal.fire({
-          text: error,
+          text: error.message,
           icon: "error",
           buttonsStyling: false,
           confirmButtonText: "Tekrar deneyin!",
@@ -181,7 +176,7 @@ export default defineComponent({
       //Deactivate indicator
       submitButton.value?.removeAttribute("data-kt-indicator");
       // eslint-disable-next-line
-        submitButton.value!.disabled = false;
+      submitButton.value!.disabled = false;
     };
 
     return {

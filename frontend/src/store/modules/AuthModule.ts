@@ -78,46 +78,45 @@ export default class AuthModule extends VuexModule implements UserAuthInfo {
     JwtService.destroyToken();
   }
 
-  @Action
+  @Action({rawError: true})
   [Actions.LOGIN](credentials) {
     return ApiService.post("users/login", credentials)
       .then(({ data }) => {
         this.context.commit(Mutations.SET_AUTH, data);
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
+        this.context.commit(Mutations.SET_ERROR, response);
       });
   }
 
-  @Action
+  @Action({rawError: true})
   [Actions.LOGOUT]() {
     this.context.commit(Mutations.PURGE_AUTH);
   }
 
-  @Action
+  @Action({rawError: true})
   [Actions.REGISTER](credentials) {
     return ApiService.post("users/register", credentials)
       .then(({ data }) => {
-        console.log(data);
         this.context.commit(Mutations.SET_AUTH, data);
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR,{error:response.data.errors});
+        this.context.commit(Mutations.SET_ERROR, response);
       });
   }
 
-  @Action
+  @Action({rawError: true})
   [Actions.FORGOT_PASSWORD](payload) {
     return ApiService.post("users/forgot_password", payload)
       .then(() => {
         this.context.commit(Mutations.SET_ERROR, {});
       })
       .catch(({ response }) => {
-        this.context.commit(Mutations.SET_ERROR, {error:response.data.errors});
+        this.context.commit(Mutations.SET_ERROR, response);
       });
   }
 
-  @Action
+  @Action({rawError: true})
   [Actions.VERIFY_AUTH](payload) {
     if (JwtService.getToken()) {
       ApiService.setHeader();

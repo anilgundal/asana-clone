@@ -259,10 +259,12 @@ export default defineComponent({
           customClass: {
             confirmButton: "btn fw-bold btn-light-primary",
           },
+        }).then(function () {
+          router.push({ name: "sign-in" });
         });
       } else {
         Swal.fire({
-          text: error,
+          text: error.message,
           icon: "error",
           buttonsStyling: false,
           confirmButtonText: "Tekrar Deneyin!",
