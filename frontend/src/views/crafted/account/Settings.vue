@@ -12,7 +12,7 @@
     >
       <!--begin::Card title-->
       <div class="card-title m-0">
-        <h3 class="fw-bolder m-0">Profile Details: {{ user_ID }}</h3>
+        <h3 class="fw-bolder m-0">Profile Details: {{ imagePreviewURL }}</h3>
       </div>
       <!--end::Card title-->
     </div>
@@ -25,6 +25,7 @@
         id="kt_account_profile_details_form"
         class="form"
         novalidate="novalidate"
+        autocomplete="off"
         @submit="saveChanges1()"
         :validation-schema="profileDetailsValidator"
       >
@@ -1101,6 +1102,7 @@
               id="kt_signin_change_email"
               class="form"
               novalidate="novalidate"
+              autocomplete="off"
               @submit="updateEmail()"
               :validation-schema="changeEmail"
             >
@@ -1137,6 +1139,7 @@
                       class="form-control form-control-lg form-control-solid fw-bold fs-6"
                       name="confirmemailpassword"
                       id="confirmemailpassword"
+                      autocomplete="false"
                     />
                     <div class="fv-plugins-message-container">
                       <div class="fv-help-block">
@@ -1208,6 +1211,7 @@
               id="kt_signin_change_password"
               class="form"
               novalidate="novalidate"
+              autocomplete="off"
               @submit="updatePassword()"
               :validation-schema="changePassword"
             >
@@ -1222,6 +1226,7 @@
                       class="form-control form-control-lg form-control-solid fw-bold fs-6"
                       name="currentpassword"
                       id="currentpassword"
+                      autocomplete="false"
                     />
                     <div class="fv-plugins-message-container">
                       <div class="fv-help-block">
@@ -1240,6 +1245,7 @@
                       class="form-control form-control-lg form-control-solid fw-bold fs-6"
                       name="newpassword"
                       id="newpassword"
+                      autocomplete="false"
                     />
                     <div class="fv-plugins-message-container">
                       <div class="fv-help-block">
@@ -1258,6 +1264,7 @@
                       class="form-control form-control-lg form-control-solid fw-bold fs-6"
                       name="confirmpassword"
                       id="confirmpassword"
+                      autocomplete="false"
                     />
                     <div class="fv-plugins-message-container">
                       <div class="fv-help-block">
@@ -1488,7 +1495,7 @@
     <!--begin::Content-->
     <div id="kt_account_email_preferences" class="collapse show">
       <!--begin::Form-->
-      <form class="form" @submit.prevent="saveChanges3()">
+      <form class="form" @submit.prevent="saveChanges3()" autocomplete="off">
         <!--begin::Card body-->
         <div class="card-body border-top px-9 py-9">
           <!--begin::Option-->
@@ -1714,7 +1721,7 @@
     <!--begin::Content-->
     <div id="kt_account_notifications" class="collapse show">
       <!--begin::Form-->
-      <form class="form" @submit.prevent="saveChanges4()">
+      <form class="form" @submit.prevent="saveChanges4()" autocomplete="off">
         <!--begin::Card body-->
         <div class="card-body border-top px-9 pt-3 pb-4">
           <!--begin::Table-->
@@ -1937,6 +1944,7 @@
       <form
         id="kt_account_deactivate_form"
         class="form"
+        autocomplete="off"
         @submit.prevent="deactivateAccount()"
       >
         <!--begin::Card body-->
@@ -2014,7 +2022,7 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import ApiService from "@/core/services/ApiService";
 import JwtService from "@/core/services/JwtService";
-import { useStore } from "vuex";
+import { mapGetters, useStore } from "vuex";
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
@@ -2044,6 +2052,9 @@ export default defineComponent({
     Field,
     Form,
   },
+  computed: {
+    ...mapGetters(["currentUser"]),
+  },
   setup() {
     const submitButton1 = ref<HTMLElement | null>(null);
     const submitButton2 = ref<HTMLElement | null>(null);
@@ -2052,12 +2063,10 @@ export default defineComponent({
     const submitButton5 = ref<HTMLElement | null>(null);
     const updateEmailButton = ref<HTMLElement | null>(null);
     const updatePasswordButton = ref<HTMLElement | null>(null);
+    var imagePreviewURL = "";
     const store = useStore();
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
-    const user_ID = computed(() => {
-      return "Anıl"; //store.state.user._id;
-    });
     const profileDetailsValidator = Yup.object().shape({
       fname: Yup.string().required().label("First name"),
       lname: Yup.string().required().label("Last name"),
@@ -2237,6 +2246,16 @@ export default defineComponent({
       profileDetails.value.avatar = "media/avatars/blank.png";
     };
 
+    const onFileChange = (payload) => {
+      const file = payload.target.files[0]; //const file = payload; // in case vuetify file input
+      if (file) {
+        imagePreviewURL = URL.createObjectURL(file);
+        URL.revokeObjectURL(file);
+      } else {
+        imagePreviewURL = "";
+      }
+    };
+
     onMounted(() => {
       ApiService.setHeader();
       ApiService.get("users/profile", "62221835d94c8307cd38816c").then(({ data }) => {
@@ -2246,7 +2265,8 @@ export default defineComponent({
     });
 
     return {
-      user_ID,
+      imagePreviewURL,
+      onFileChange,
       submitButton1,
       submitButton2,
       submitButton3,

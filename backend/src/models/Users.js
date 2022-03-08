@@ -12,10 +12,10 @@ const UserSchema = new Mongoose.Schema({
     language: String,
     timezone: String,
     currency: String,
-    communications: {
+    communications: [{
         email: Boolean,
         phone: Boolean
-    },
+    }],
     allowMarketing: Boolean,
     password: String,
     email: String,

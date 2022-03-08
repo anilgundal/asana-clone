@@ -19,16 +19,16 @@ class UserController {
     }
     login (req, res) {
         req.body.password = passwordToHash( req.body.password );
-        User.read(req.body).then(user  => {
+        User.fetched(req.body, "name surname email avatar").then(user  => {
         if(!user) return res.status(httpStatus.NOT_FOUND).send({message:"Kullanıcı adı veya parolası yanlış!"});
             user = {
                 ... user.toObject(),
                 token: {
                     accessToken: generateAccessToken(user),
-                    refreshToken: generateRefreshToken(user),
+                    //refreshToken: generateRefreshToken(user),
                 }
             };
-            delete user.password, user.createdAt, user.updatedAt;
+            delete user.password;
             res.status(httpStatus.OK).send(user);
         }).catch((e) => res.status(httpStatus.NOT_FOUND).send({message:e}));
     }
@@ -66,6 +66,8 @@ class UserController {
     
     }
     change (req, res) {
+        console.log(req.body);
+        if(req?.files?.avatar && req.body?.avatar) this.uploadProfile(req.files);
         User.update(req.user?._id, req.body.data)
         .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
         .catch(e => new ApiError(e?.message));
@@ -77,6 +79,7 @@ class UserController {
         .catch(e => new ApiError(e?.message));
     }
     uploadProfile (req, res, next) {
+        
         /** path require edildi. join ile beraber ilgili yol bulundu
          * console.log(path.join(__dirname, "../", "uploads/users"));
          * console.log('req.files :>> ', req.files);
@@ -98,19 +101,19 @@ class UserController {
         */
     
         
-        if(!req?.files?.picture && !req.body?.picture) return ApiError.badRequest("Dosya seçin!", 400);
-        if(req?.body?.picture){
+        if(!req?.files?.avatar && !req.body?.avatar) return ApiError.badRequest("Dosya seçin!", 400);
+        if(req?.body?.avatar){
             User.update(req.user?._id, req.body)
             .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
             .catch(e => new ApiError(e?.message));
         }
-        else if(req?.files?.picture){
-            const extension = path.extname(req.files.picture.name);
+        else if(req?.files?.avatar){
+            const extension = path.extname(req.files.avatar.name);
             const fileName = `${req?.user?._id}${extension}`;
             const folderPath = path.join(__dirname, "../", "uploads/users", fileName);
-            req.files.picture.mv(folderPath, function(err) {
+            req.files.avatar.mv(folderPath, function(err) {
                 if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Dosya yükleme başarısız oldu!", error:err});
-                User.update(req.user._id, {picture: fileName})
+                User.update(req.user._id, {avatar: fileName})
                 .then(u => res.status(httpStatus.OK).send({message:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))
                 .catch(e => new ApiError(e?.message));
             });
@@ -120,7 +123,7 @@ class UserController {
         return res.status(httpStatus.OK).send(req.user);
     }
     profileDetails (req, res) {
-        User.read({_id: req.params.id}, true)
+        User.fetched({_id: req.params.id}, "-createdAt -updatedAt -password", true)
         .then(user => {
             return (!user) ? ApiError.notFound() : res.status(httpStatus.OK).send(user);
         })
