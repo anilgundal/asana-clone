@@ -162,12 +162,12 @@
             <a href="#" class="ms-1 link-primary">Kullanıcı Sözleşmesi</a>'ni okudum &amp;
             onaylıyorum!
           </span>
-          <div class="fv-plugins-message-container">
-            <div class="fv-help-block">
-              <ErrorMessage name="toc" />
-            </div>
-          </div>
         </label>
+        <div class="fv-plugins-message-container">
+          <div class="fv-help-block">
+            <ErrorMessage name="toc" />
+          </div>
+        </div>
       </div>
       <!--end::Input group-->
 
@@ -217,13 +217,17 @@ export default defineComponent({
     const submitButton = ref<HTMLButtonElement | null>(null);
 
     const registration = Yup.object().shape({
-      name: Yup.string().min(3).required().label("isim"),
-      surname: Yup.string().min(3).required().label("soyisim"),
-      email: Yup.string().min(4).required().email().label("eposta"),
-      password: Yup.string().min(8).required().label("parola"),
+      name: Yup.string().min(3).required("Ad zorunlu alandır!").label("isim"),
+      surname: Yup.string().min(3).required("Soyad zorunlu alandır!").label("soyisim"),
+      email: Yup.string()
+        .min(4)
+        .required("E-posta zorunlu alandır!")
+        .email()
+        .label("eposta"),
+      password: Yup.string().min(8).required("Parola zorunlu alandır!").label("parola"),
       toc: Yup.bool().required("Şartları kabul etmelisiniz!").label("Şartlar"),
       confirmation: Yup.string()
-        .required()
+        .required("Parolanızı tekrar yazın!")
         .oneOf([Yup.ref("password"), null], "Parolalar Eşleşmeli!")
         .label("Parola Tekrarı"),
     });

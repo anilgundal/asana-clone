@@ -66,7 +66,7 @@ class UserController {
     
     }
     change (req, res) {
-        User.update(req.user?._id, req.body)
+        User.update(req.user?._id, req.body.data)
         .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
         .catch(e => new ApiError(e?.message));
     }

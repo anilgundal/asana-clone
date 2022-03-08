@@ -12,7 +12,7 @@
     >
       <!--begin::Card title-->
       <div class="card-title m-0">
-        <h3 class="fw-bolder m-0">Profile Details</h3>
+        <h3 class="fw-bolder m-0">Profile Details: {{ user_ID }}</h3>
       </div>
       <!--end::Card title-->
     </div>
@@ -962,6 +962,9 @@
                 </option>
                 <option data-kt-flag="flags/switzerland.svg" value="CHF">
                   <b>CHF</b>&#160;-&#160;Swiss franc
+                </option>
+                <option data-kt-flag="flags/turkey.svg" value="TRY">
+                  <b>TRY</b>&#160;-&#160;Turkish Lira
                 </option>
               </Field>
               <div class="fv-plugins-message-container">
@@ -2006,12 +2009,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, onMounted, ref, computed } from "vue";
 import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
-
 import ApiService from "@/core/services/ApiService";
 import JwtService from "@/core/services/JwtService";
+import { useStore } from "vuex";
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
@@ -2049,10 +2052,12 @@ export default defineComponent({
     const submitButton5 = ref<HTMLElement | null>(null);
     const updateEmailButton = ref<HTMLElement | null>(null);
     const updatePasswordButton = ref<HTMLElement | null>(null);
-
+    const store = useStore();
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
-
+    const user_ID = computed(() => {
+      return "Anıl"; //store.state.user._id;
+    });
     const profileDetailsValidator = Yup.object().shape({
       fname: Yup.string().required().label("First name"),
       lname: Yup.string().required().label("Last name"),
@@ -2081,16 +2086,16 @@ export default defineComponent({
     });
 
     const profileDetails = ref<ProfileDetails>({
-      avatar: "media/avatars/300-1.jpg",
-      name: "Max",
-      surname: "Smith",
-      company: "Keenthemes",
-      contactPhone: "044 3276 454 935",
-      companySite: "keenthemes.com",
-      country: "MY",
-      language: "msa",
-      timezone: "Kuala Lumpur",
-      currency: "USD",
+      avatar: "",
+      name: "",
+      surname: "",
+      company: "",
+      contactPhone: "",
+      companySite: "",
+      country: "",
+      language: "",
+      timezone: "",
+      currency: "",
       communications: {
         email: false,
         phone: false,
@@ -2099,14 +2104,41 @@ export default defineComponent({
     });
 
     const saveChanges1 = () => {
-      if (submitButton1.value) {
-        // Activate indicator
-        submitButton1.value.setAttribute("data-kt-indicator", "on");
-
-        setTimeout(() => {
-          submitButton1.value?.removeAttribute("data-kt-indicator");
-        }, 2000);
+      if (!submitButton1.value) {
+        return;
       }
+      submitButton1.value.setAttribute("data-kt-indicator", "on");
+
+      ApiService.setHeader();
+      ApiService.patch("/users", {
+        data: profileDetails.value,
+      })
+        .then(({ data }) => {
+          Swal.fire({
+            text: "Form has been successfully submitted!",
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+              confirmButton: "btn btn-primary",
+            },
+          }).then(() => {
+            submitButton1.value?.removeAttribute("data-kt-indicator");
+          });
+        })
+        .catch(({ err }) => {
+          Swal.fire({
+            text: "Sorry, looks like there are some errors detected, please try again.",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+              confirmButton: "btn btn-primary",
+            },
+          }).then(() => {
+            submitButton1.value?.removeAttribute("data-kt-indicator");
+          });
+        });
     };
 
     const saveChanges2 = () => {
@@ -2206,10 +2238,15 @@ export default defineComponent({
     };
 
     onMounted(() => {
+      ApiService.setHeader();
+      ApiService.get("users/profile", "62221835d94c8307cd38816c").then(({ data }) => {
+        profileDetails.value = data;
+      });
       setCurrentPageBreadcrumbs("Settings", ["Account"]);
     });
 
     return {
+      user_ID,
       submitButton1,
       submitButton2,
       submitButton3,
