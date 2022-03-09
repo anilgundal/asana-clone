@@ -12,7 +12,7 @@
     >
       <!--begin::Card title-->
       <div class="card-title m-0">
-        <h3 class="fw-bolder m-0">Profile Details: {{ userID }}</h3>
+        <h3 class="fw-bolder m-0">Profile Details:</h3>
       </div>
       <!--end::Card title-->
     </div>
