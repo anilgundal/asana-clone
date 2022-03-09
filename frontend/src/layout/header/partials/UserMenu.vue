@@ -171,15 +171,15 @@
         <!--begin::Menu item-->
         <div class="menu-item px-3">
           <a
-            @click="setLang('en')"
+            @click="setLang('tr')"
             href="#"
             class="menu-link d-flex px-5"
-            :class="{ active: currentLanguage('en') }"
+            :class="{ active: currentLanguage('tr') }"
           >
             <span class="symbol symbol-20px me-4">
-              <img class="rounded-1" src="media/flags/united-states.svg" alt="metronic" />
+              <img class="rounded-1" src="media/flags/turkey.svg" alt="metronic" />
             </span>
-            English
+            Türkçe
           </a>
         </div>
         <!--end::Menu item-->
@@ -289,6 +289,10 @@ export default defineComponent({
       : "en";
 
     const countries = {
+      tr: {
+        flag: "media/flags/turkey.svg",
+        name: "Türkçe",
+      },
       en: {
         flag: "media/flags/united-states.svg",
         name: "English",

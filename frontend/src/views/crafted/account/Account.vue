@@ -7,7 +7,7 @@
         <!--begin: Pic-->
         <div class="me-7 mb-4">
           <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-            <img src="media/avatars/300-1.jpg" alt="image" />
+            <img :src="currentUser.avatar" alt="image" />
             <div
               class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
             ></div>
@@ -23,8 +23,10 @@
             <div class="d-flex flex-column">
               <!--begin::Name-->
               <div class="d-flex align-items-center mb-2">
-                <a href="#" class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1"
-                  >Max Smith</a
+                <a
+                  href="#"
+                  class="text-gray-800 text-hover-primary fs-2 fw-bolder me-1"
+                  >{{ currentUser.name }}</a
                 >
                 <a href="#">
                   <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -69,7 +71,7 @@
                   <span class="svg-icon svg-icon-4 me-1">
                     <inline-svg src="media/icons/duotune/communication/com011.svg" />
                   </span>
-                  max@kt.com
+                  {{ currentUser.email }}
                 </a>
               </div>
               <!--end::Info-->
@@ -262,6 +264,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { mapGetters } from "vuex";
 import Dropdown3 from "@/components/dropdown/Dropdown3.vue";
 
 export default defineComponent({
@@ -269,6 +272,9 @@ export default defineComponent({
 
   components: {
     Dropdown3,
+  },
+  computed: {
+    ...mapGetters(["currentUser"]),
   },
 });
 </script>

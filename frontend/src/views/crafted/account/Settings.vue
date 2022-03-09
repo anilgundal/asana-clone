@@ -12,7 +12,7 @@
     >
       <!--begin::Card title-->
       <div class="card-title m-0">
-        <h3 class="fw-bolder m-0">Profile Details: {{ imagePreviewURL }}</h3>
+        <h3 class="fw-bolder m-0">Profile Details: {{ userID }}</h3>
       </div>
       <!--end::Card title-->
     </div>
@@ -2022,7 +2022,8 @@ import { ErrorMessage, Field, Form } from "vee-validate";
 import { setCurrentPageBreadcrumbs } from "@/core/helpers/breadcrumb";
 import ApiService from "@/core/services/ApiService";
 import JwtService from "@/core/services/JwtService";
-import { mapGetters, useStore } from "vuex";
+// import { mapGetters } from "@/core/helpers/mapGetters";
+import { useStore } from "vuex";
 
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import * as Yup from "yup";
@@ -2052,10 +2053,9 @@ export default defineComponent({
     Field,
     Form,
   },
-  computed: {
-    ...mapGetters(["currentUser"]),
-  },
+
   setup() {
+    const store = useStore();
     const submitButton1 = ref<HTMLElement | null>(null);
     const submitButton2 = ref<HTMLElement | null>(null);
     const submitButton3 = ref<HTMLElement | null>(null);
@@ -2063,10 +2063,11 @@ export default defineComponent({
     const submitButton5 = ref<HTMLElement | null>(null);
     const updateEmailButton = ref<HTMLElement | null>(null);
     const updatePasswordButton = ref<HTMLElement | null>(null);
-    var imagePreviewURL = "";
-    const store = useStore();
+    const userID = computed(() => store.getters.currentUser._id);
+
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
+
     const profileDetailsValidator = Yup.object().shape({
       fname: Yup.string().required().label("First name"),
       lname: Yup.string().required().label("Last name"),
@@ -2246,27 +2247,15 @@ export default defineComponent({
       profileDetails.value.avatar = "media/avatars/blank.png";
     };
 
-    const onFileChange = (payload) => {
-      const file = payload.target.files[0]; //const file = payload; // in case vuetify file input
-      if (file) {
-        imagePreviewURL = URL.createObjectURL(file);
-        URL.revokeObjectURL(file);
-      } else {
-        imagePreviewURL = "";
-      }
-    };
-
     onMounted(() => {
       ApiService.setHeader();
-      ApiService.get("users/profile", "62221835d94c8307cd38816c").then(({ data }) => {
-        profileDetails.value = data;
-      });
-      setCurrentPageBreadcrumbs("Settings", ["Account"]);
+      ApiService.get("users/profile", userID.value).then(
+        ({ data }) => (profileDetails.value = data)
+      );
+      setCurrentPageBreadcrumbs("Settings", ["Hesap"]);
     });
 
     return {
-      imagePreviewURL,
-      onFileChange,
       submitButton1,
       submitButton2,
       submitButton3,
@@ -2288,6 +2277,7 @@ export default defineComponent({
       updatePasswordButton,
       updateEmail,
       updatePassword,
+      userID,
     };
   },
 });
