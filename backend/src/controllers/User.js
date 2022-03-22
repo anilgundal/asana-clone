@@ -66,10 +66,8 @@ class UserController {
     
     }
     change (req, res) {
-        console.log(req.body);
-        if(req?.files?.avatar && req.body?.avatar) this.uploadProfile(req.files);
         User.update(req.user?._id, req.body.data)
-        .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
+        .then(updatedUser => res.status(httpStatus.OK).send({message:"Kayıt güncellendi."}))
         .catch(e => new ApiError(e?.message));
     }
     remove (req, res) {
@@ -81,10 +79,9 @@ class UserController {
     uploadProfile (req, res, next) {
         
         /** path require edildi. join ile beraber ilgili yol bulundu
-         * console.log(path.join(__dirname, "../", "uploads/users"));
-         * console.log('req.files :>> ', req.files);
+         * console.log(path.join(__dirname, "../../../", "frontend/public/media/avatars"));
+         * 
         */
-    
         /** form input name: picture olarak belirledik
          * extension: path.extname bize dosya adından yola çıkarak uzantısını nokta ile birlikte verir. (.jpeg) gibi.
          * fileName: user id'yi authenticate olunca alıyorduk. Bunu extension ile birleştirdik
@@ -101,17 +98,17 @@ class UserController {
         */
     
         
-        if(!req?.files?.avatar && !req.body?.avatar) return ApiError.badRequest("Dosya seçin!", 400);
-        if(req?.body?.avatar){
+        if(!req?.files?.file && !req.body?.file) return ApiError.badRequest("Dosya seçin!", 400);
+        if(req?.body?.file){
             User.update(req.user?._id, req.body)
             .then(updatedUser => res.status(httpStatus.OK).send({updatedUser : updatedUser}))
             .catch(e => new ApiError(e?.message));
         }
-        else if(req?.files?.avatar){
-            const extension = path.extname(req.files.avatar.name);
+        else if(req?.files?.file){
+            const extension = path.extname(req.files.file.name);
             const fileName = `${req?.user?._id}${extension}`;
-            const folderPath = path.join(__dirname, "../", "uploads/users", fileName);
-            req.files.avatar.mv(folderPath, function(err) {
+            const folderPath = path.join(__dirname, "../../../", "frontend/public/uploads/users", fileName);
+            req.files.file.mv(folderPath, function(err) {
                 if(err) return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({message:"Dosya yükleme başarısız oldu!", error:err});
                 User.update(req.user._id, {avatar: fileName})
                 .then(u => res.status(httpStatus.OK).send({message:"Yükleme ve kayıt işlemleri başarılı oldu.", updatedUser:u}))

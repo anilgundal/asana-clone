@@ -40,29 +40,17 @@
             <!--begin::Col-->
             <div class="col-lg-8">
               <!--begin::Image input-->
-              <div
-                class="image-input image-input-outline"
-                data-kt-image-input="true"
-                style="background-image: url(media/avatars/blank.png)"
-              >
+              <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(media/avatars/blank.png)" >
                 <!--begin::Preview existing avatar-->
-                <div
-                  class="image-input-wrapper w-125px h-125px"
-                  :style="`background-image: url(${profileDetails.avatar})`"
-                ></div>
+                <div class="image-input-wrapper w-125px h-125px" :style="`background-image: url(${profileDetails.avatar})`" ></div>
                 <!--end::Preview existing avatar-->
 
                 <!--begin::Label-->
-                <label
-                  class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow"
-                  data-kt-image-input-action="change"
-                  data-bs-toggle="tooltip"
-                  title="Change avatar"
-                >
+                <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-white shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar" >
                   <i class="bi bi-pencil-fill fs-7"></i>
 
                   <!--begin::Inputs-->
-                  <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                  <input type="file" name="avatar" accept=".png, .jpg, .jpeg" @change="onFileChange"/>
                   <input type="hidden" name="avatar_remove" />
                   <!--end::Inputs-->
                 </label>
@@ -2064,6 +2052,9 @@ export default defineComponent({
     const updateEmailButton = ref<HTMLElement | null>(null);
     const updatePasswordButton = ref<HTMLElement | null>(null);
     const userID = computed(() => store.getters.currentUser._id);
+    const picture = ref(null);
+
+
 
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
@@ -2113,19 +2104,58 @@ export default defineComponent({
       allowMarketing: false,
     });
 
+
+    const onFileChange = (payload) => {
+      const file = payload.target.files[0]; 
+
+      if (file) {
+        profileDetails.value.avatar =  URL.createObjectURL(file);
+        URL.revokeObjectURL(file);
+        ApiService.post("/users/upload-picture", file)
+        .then(({ data }) => {
+          Swal.fire({
+            text: data.message,
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Tamam",
+            customClass: {
+              confirmButton: "btn btn-primary",
+            },
+          }).then(() => {
+            submitButton1.value?.removeAttribute("data-kt-indicator");
+          });
+        })
+        .catch(({ err }) => {
+          Swal.fire({
+            text: "Sorry, looks like there are some errors detected, please try again.",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+              confirmButton: "btn btn-primary",
+            },
+          }).then(() => {
+            submitButton1.value?.removeAttribute("data-kt-indicator");
+          });
+        });
+    
+      } else {
+        profileDetails.value.avatar = "media/avatars/blank.png";
+      }
+    }
+
     const saveChanges1 = () => {
       if (!submitButton1.value) {
         return;
       }
       submitButton1.value.setAttribute("data-kt-indicator", "on");
 
-      ApiService.setHeader();
-      ApiService.patch("/users", {
-        data: profileDetails.value,
+      ApiService.patch("/users", { 
+        data:profileDetails.value
       })
         .then(({ data }) => {
           Swal.fire({
-            text: "Form has been successfully submitted!",
+            text: data.message,
             icon: "success",
             buttonsStyling: false,
             confirmButtonText: "Ok, got it!",
@@ -2149,6 +2179,7 @@ export default defineComponent({
             submitButton1.value?.removeAttribute("data-kt-indicator");
           });
         });
+    
     };
 
     const saveChanges2 = () => {
@@ -2248,7 +2279,6 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      ApiService.setHeader();
       ApiService.get("users/profile", userID.value).then(
         ({ data }) => (profileDetails.value = data)
       );
@@ -2278,6 +2308,7 @@ export default defineComponent({
       updateEmail,
       updatePassword,
       userID,
+      onFileChange,
     };
   },
 });
