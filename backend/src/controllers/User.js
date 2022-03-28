@@ -66,9 +66,9 @@ class UserController {
     
     }
     change (req, res) {
-        User.update(req.user?._id, req.body.data)
-        .then(updatedUser => res.status(httpStatus.OK).send({message:"Kayıt güncellendi."}))
-        .catch(e => new ApiError(e?.message));
+        console.log(req.body.data);
+        return res.status(httpStatus.OK).send({message :"OK"})
+        //User.update(req.user?._id, req.body.data).then(updatedUser => res.status(httpStatus.OK).send({message:"Kayıt güncellendi."})).catch(e => new ApiError(e?.message));
     }
     remove (req, res) {
         User.delete(req.params?.id)

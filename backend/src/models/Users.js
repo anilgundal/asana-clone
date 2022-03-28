@@ -12,11 +12,8 @@ const UserSchema = new Mongoose.Schema({
     language: String,
     timezone: String,
     currency: String,
-    communications: [{
-        email: Boolean,
-        phone: Boolean
-    }],
-    allowMarketing: Boolean,
+    communication: [String],
+    allowmarketing: Boolean,
     password: String,
     email: String,
 }, {timestamps:true, versionKey:false });

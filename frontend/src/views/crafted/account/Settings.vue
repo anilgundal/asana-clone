@@ -982,6 +982,8 @@
                     class="form-check-input"
                     name="communication[]"
                     type="checkbox"
+                    @change="updateComm"
+                    value="email"
                   />
                   <span class="fw-bold ps-2 fs-6"> Email </span>
                 </label>
@@ -993,6 +995,8 @@
                     class="form-check-input"
                     name="communication[]"
                     type="checkbox"
+                    @change="updateComm"
+                    value="phone"
                   />
                   <span class="fw-bold ps-2 fs-6"> Phone </span>
                 </label>
@@ -1017,6 +1021,7 @@
                   class="form-check-input w-45px h-30px"
                   type="checkbox"
                   id="allowmarketing"
+                  @change="allowMarketing"
                 />
                 <label class="form-check-label" for="allowmarketing"></label>
               </div>
@@ -2027,7 +2032,7 @@ interface ProfileDetails {
   language: string;
   timezone: string;
   currency: string;
-  communications: {
+  communication: {
     email: boolean;
     phone: boolean;
   };
@@ -2052,12 +2057,10 @@ export default defineComponent({
     const updateEmailButton = ref<HTMLElement | null>(null);
     const updatePasswordButton = ref<HTMLElement | null>(null);
     const userID = computed(() => store.getters.currentUser._id);
-    const picture = ref(null);
-
-
 
     const emailFormDisplay = ref(false);
     const passwordFormDisplay = ref(false);
+
 
     const profileDetailsValidator = Yup.object().shape({
       fname: Yup.string().required().label("First name"),
@@ -2097,14 +2100,27 @@ export default defineComponent({
       language: "",
       timezone: "",
       currency: "",
-      communications: {
+      communication: {
         email: false,
         phone: false,
       },
       allowMarketing: false,
     });
 
+    const updateComm = ((e) =>{
+      if(e.target.value == "email"){
+        profileDetails.value.communication.email = (e.target.checked) ? true : false;
+      }
+      else if(e.target.value == "phone"){
+        profileDetails.value.communication.phone = (e.target.checked) ? true : false;
+      }
+    });
 
+    const allowMarketing = ((e) =>{
+      if(e.target.value == "on"){
+        profileDetails.value.allowMarketing= true;
+      }
+    });
     const onFileChange = (payload) => {
       const file = payload.target.files[0]; 
 
@@ -2148,12 +2164,15 @@ export default defineComponent({
       if (!submitButton1.value) {
         return;
       }
+      let data = {
+        ... profileDetails.value,
+        ... profileDetails.value.communication
+      };
+      console.log(data)
       submitButton1.value.setAttribute("data-kt-indicator", "on");
 
-      ApiService.patch("/users", { 
-        data:profileDetails.value
-      })
-        .then(({ data }) => {
+      ApiService.patch("/users", {data:data})
+      .then(({ data }) => {
           Swal.fire({
             text: data.message,
             icon: "success",
@@ -2165,8 +2184,8 @@ export default defineComponent({
           }).then(() => {
             submitButton1.value?.removeAttribute("data-kt-indicator");
           });
-        })
-        .catch(({ err }) => {
+      })
+      .catch(({ err }) => {
           Swal.fire({
             text: "Sorry, looks like there are some errors detected, please try again.",
             icon: "error",
@@ -2309,6 +2328,8 @@ export default defineComponent({
       updatePassword,
       userID,
       onFileChange,
+      updateComm,
+      allowMarketing,
     };
   },
 });
