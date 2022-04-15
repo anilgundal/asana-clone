@@ -12,7 +12,7 @@ router.get('/', UserController.list);
 router.route("/profile/:id").get(idChecker, authenticate, UserController.profileDetails);
 router.route("/projects").get(authenticate, UserController.projectList);
 router.route("/register").post(validate(validation.insertValidation), UserController.insert);
-router.route("/").patch(authenticate, UserController.change);// user'ı bildiğimiz için id istemedik!
+router.route("/").post(authenticate, UserController.change);// user'ı bildiğimiz için id istemedik!
 router.route("/login").post(validate(validation.loginValidation), UserController.login);
 router.route("/verify_token").post(authenticate, UserController.verify_token);
 router.route("/forgot_password").post(validate(validation.resetPasswordValidation), UserController.resetPassword);

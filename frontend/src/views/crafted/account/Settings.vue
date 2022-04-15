@@ -2114,6 +2114,7 @@ export default defineComponent({
       else if(e.target.value == "phone"){
         profileDetails.value.communication.phone = (e.target.checked) ? true : false;
       }
+      console.log(profileDetails.value.communication);
     });
 
     const allowMarketing = ((e) =>{
@@ -2164,15 +2165,11 @@ export default defineComponent({
       if (!submitButton1.value) {
         return;
       }
-      let data = {
-        ... profileDetails.value,
-        ... profileDetails.value.communication
-      };
-      console.log(data)
       submitButton1.value.setAttribute("data-kt-indicator", "on");
 
-      ApiService.patch("/users", {data:data})
-      .then(({ data }) => {
+      let submitData = JSON.stringify(profileDetails.value);
+      console.log(submitData);
+      ApiService.post("/users", {data:JSON.parse(submitData)}).then(({ data }) => {
           Swal.fire({
             text: data.message,
             icon: "success",
@@ -2184,8 +2181,7 @@ export default defineComponent({
           }).then(() => {
             submitButton1.value?.removeAttribute("data-kt-indicator");
           });
-      })
-      .catch(({ err }) => {
+      }).catch(({ err }) => {
           Swal.fire({
             text: "Sorry, looks like there are some errors detected, please try again.",
             icon: "error",
