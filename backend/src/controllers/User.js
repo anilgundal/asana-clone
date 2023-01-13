@@ -76,6 +76,10 @@ class UserController {
             return (!deletedItem) ? next(ApiError.notFound()) : res.status(httpStatus.OK).send({message:"Kayıt silindi."})})
         .catch(e => new ApiError(e?.message));
     }
+
+
+
+
     uploadProfile (req, res, next) {
         
         /** path require edildi. join ile beraber ilgili yol bulundu
@@ -116,6 +120,10 @@ class UserController {
             });
         }
     }
+
+
+
+    
     verify_token (req, res) {
         return res.status(httpStatus.OK).send(req.user);
     }
