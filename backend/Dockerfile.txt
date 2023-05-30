@@ -1,0 +1,20 @@
+FROM node:18-alpine As builder
+WORKDIR /backend
+COPY *.json ./
+RUN yarn cache clean
+RUN yarn install --prod --frozen-lockfile --prefer-offline --no-progress
+COPY . .
+# RUN yarn autoclean --force
+
+FROM node:14-alpine As production
+ENV TZ=Europe/Istanbul
+ENV IS_CONTAINER=1
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /backend
+
+COPY --from=builder *.json ./
+COPY --from=builder /src /src
+
+CMD [ "npm", "run", "start" ]
